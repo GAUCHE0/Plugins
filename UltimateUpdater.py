@@ -6,7 +6,7 @@ import os
 import shutil
 
 pName = 'UltimateUpdater'
-pVersion = '1.0'
+pVersion = '1.1'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateUpdater.py"
 
 # ______________________________ YUKLME ______________________________ #
@@ -121,7 +121,7 @@ def btnUpdate_clicked():
 						f.write(pyCode)
 					# GUI DATASINI UPDATE ET
 					QtBind.removeAt(gui,lvwPlugins,indexSelected)
-					QtBind.append(gui,lvwPlugins,pyData['pName']+".py ("+pyData['pName']+" v"+pyVersion+") - Updated recently")
+					QtBind.append(gui,lvwPlugins,pyData['pName']+".py ("+pyData['pName']+" v"+pyVersion+") - GUNCELLEME TAMAMLANDI.")
 					log('Plugin: "'+pyData['pName']+'" PLUGIN BASARI ILE GUNCELLENDI')
 			except:
 				log("Plugin: GUNCELLENIRKEN BIR HATA ILE KARSILASILDI, LUTFEN DAHA SONRA TEKRAR DENEYINIZ.")
