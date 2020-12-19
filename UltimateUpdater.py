@@ -7,6 +7,7 @@ import shutil
 
 pName = 'UltimateUpdater'
 pVersion = '1.0'
+pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateUpdater.py"
 
 # ______________________________ YUKLME ______________________________ #
 
