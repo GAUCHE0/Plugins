@@ -9,6 +9,7 @@ import os
 
 pName = 'UltimateController'
 pVersion = '1.0'
+pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 
 # ______________________________ Initializing ______________________________ #
 # Globals
