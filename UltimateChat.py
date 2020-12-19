@@ -6,7 +6,7 @@ import json
 import os
 
 pName = 'UltimateChat'
-pVersion = '1.1'
+pVersion = '1.2'
 pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateChat.py'
 
 #3.SAYFA CHAT KOMUTLARI
@@ -21,7 +21,7 @@ message_delay_counter = 0
 character_data = None
 # Graphic user interface
 
-gui__ = QtBind.init(__name__,pName+)
+gui__ = QtBind.init(__name__,pName)
 
 cbxMsg = QtBind.createCheckBox(gui__, 'cbxMsg_clicked','MESAJ GONDER: ', 21, 13)
 
