@@ -7,7 +7,7 @@ import os
 
 pName = 'UltimateChat'
 pVersion = '1.0'
-pUrl = ''
+pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateChat.py'
 
 #3.SAYFA CHAT KOMUTLARI
 
