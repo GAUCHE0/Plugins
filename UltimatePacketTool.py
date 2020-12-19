@@ -5,6 +5,7 @@ import os
 
 pName = 'UltimatePacketTooL'
 pVersion = '1.0'
+pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimatePacketTool.py"
 
 # ______________________________ KURULUM ______________________________ #
 
