@@ -6,6 +6,7 @@ import QtBind
 
 pName = 'UltimateLockeR'
 pVersion = '1.0'
+pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateLockeR.py"
 
 # KULLANICI AYARLARI
 MATCH_PARTY_MASTER = "" 
@@ -122,7 +123,7 @@ def handle_chat(t,charName,message):
 		# PT KATILIM BEKLEME SURESI
 		now = time.time()
 		if now - questionPartyTime < MATCH_REPLY_DELAY_MAX:
-			# CEVAP KONTROLÜ
+			# CEVAP KONTROLÃœ
 			if message == QUESTION_PASSWORD:
 				log("Plugin: "+charName+" SIFRE ILE PT'YE GIRDI")
 				Inject_PartyMatchJoinResponse(questionPartyRID,questionPartyJID,True)
@@ -135,7 +136,7 @@ def handle_chat(t,charName,message):
 		# AKADEMI KATILIM BEKLEME SURESI 
 		now = time.time()
 		if now - questionAcademyTime < MATCH_REPLY_DELAY_MAX:
-			# CEVAP KONTROLÜ
+			# CEVAP KONTROLÃœ
 			if message == QUESTION_PASSWORD:
 				log("Plugin: "+charName+" SIFRE ILE AKADEMIYE GIRDI")
 				Inject_AcademyMatchJoinResponse(questionAcademyRID,questionAcademyJID,True)
