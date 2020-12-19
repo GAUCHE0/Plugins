@@ -20,7 +20,7 @@ import os
 
 pName = 'UltimateController'
 
-pVersion = '1.5'
+pVersion = '1.2'
 
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 
