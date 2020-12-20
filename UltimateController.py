@@ -1413,13 +1413,13 @@ def handle_chat(t,player,msg):
 			inject_joymax( 0x705A,b'\x0A\x89\x2D\x0B\x03\x00',False) #21.30 TELEPORTU
 			inject_joymax( 0x705A,b'\x73\x31\x7D\x0B\x03\x00',False) #01.30 TELEPORTU
 			inject_joymax( 0x705A,b'\x87\x59\x40\x0C\x03\x00',False) #11.30 TELEPORTU
-		elif msg == "NEITHC"
+		elif msg == "NEITHC":
 
 			log("Plugin: NEITH ODASINDAN ISINLANDI..")
 
 			inject_joymax( 0x705A,b'\x74\x31\x7D\x0B\x03\x00',False) #01.30 CIKIS TELEPORTU
 			inject_joymax( 0x705A,b'\x88\x59\x40\x0C\x03\x00',False) #11.30 CIKIS TELEPORTU
-		elif msg == "SELKET"
+		elif msg == "SELKET":
 
 			log("Plugin: SELKET ODASINA ISINLANDI..")
 
@@ -1450,13 +1450,13 @@ def handle_chat(t,player,msg):
 			inject_joymax( 0x705A,b'\x63\x70\xA4\x0B\x03\x00',False) #03.30 CIKIS TELEPORTU
 		elif msg == "ISIS":
 
-			log("Plugin: ISIS ODASINA ISINLANDI.."
+			log("Plugin: ISIS ODASINA ISINLANDI..")
 			
 			inject_joymax( 0x705A,b'\x75\xA5\x54\x0B\x03\x00',False) #23.30 TELEPORTU
 			inject_joymax( 0x705A,b'\x64\x70\xA4\x0B\x03\x00',False) #03.30 TELEPORTU
-		elif msg == "ISISC"
+		elif msg == "ISISC":
 		
-			log("Plugin: ISIS ODASINDAN ISINLANDI.."
+			log("Plugin: ISIS ODASINDAN ISINLANDI..")
 			
 			inject_joymax( 0x705A,b'\x76\xA5\x54\x0B\x03\x00',False) #23.30 CIKIS TELEPORTU
 			inject_joymax( 0x705A,b'\x65\x70\xA4\x0B\x03\x00',False) #03.30 CIKIS TELEPORTU
