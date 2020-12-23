@@ -66,8 +66,6 @@ lblxControl01 = QtBind.createLabel(gui_,' # DESTEK KOMUTLARI :\n - HXY : HOTAN F
 
 lblxControl02 = QtBind.createLabel(gui_,' # TARGET MODU DESTEK KOMUTLARI : \n - TARGET ON : TARGET MODUNU AKTIF ET.\n - TARGET OFF : TARGET MODUNU DEAKTIF ET.\n - DEFF ON : DEFANS MODU AKTIF ET.\n - DEFF OFF : DEFANS MODU DEAKTIF ET. ',491,11)
 
-lblxControl03 = QtBind.createLabel(gui_,' # JOV CAVE TELEPORT KODLARI : \n - CAVETHIEF : JOB CAVE THIEF KAPISI \n - CAVEHUNTER : JOB CAVE HUNTER KAPISI \n - SELKET : SELKET ODASINA GIRIS. \n - SELKETC : SELKET ODASINDAN CIKIS. \n - NEITH : NEITH ODASINA GIRIS. \n - NEITHC : NEITH ODASINDAN CIKIS. \n - ANUBIS : ANUBIS ODASINA GIRIS. \n - ANUBISC : ANUBIS ODASINDAN CIKIS. \n - ISIS : ISIS ODASINA GIRIS. \n - ISISC : ISIS ODASINDAN CIKIS.',491,101)
-
 # ______________________________ Methods ______________________________ #
 
 # UltimateController CONFIG YOLU
@@ -1399,68 +1397,7 @@ def handle_chat(t,player,msg):
 			log("Plugin: RES SCROLL KULLANILDI")
 
 			inject_joymax( 0x704C,b'\x28\xED\x36',False)		
-		#JOB CAVE TELEPORT KODLARI
-		elif msg == "CAVETHIEF":
-
-			log("Plugin: JOB CAVE(THIEF) ISINLANDI..")
-
-			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\xAE\x00\x00\x00',False)
-
-		elif msg == "NEITH":
-
-			log("Plugin: NEITH ODASINA ISINLANDI..")
-
-			inject_joymax( 0x705A,b'\x0A\x89\x2D\x0B\x03\x00',False) #21.30 TELEPORTU
-			inject_joymax( 0x705A,b'\x73\x31\x7D\x0B\x03\x00',False) #01.30 TELEPORTU
-			inject_joymax( 0x705A,b'\x87\x59\x40\x0C\x03\x00',False) #11.30 TELEPORTU
-		elif msg == "NEITHC":
-
-			log("Plugin: NEITH ODASINDAN ISINLANDI..")
-
-			inject_joymax( 0x705A,b'\x74\x31\x7D\x0B\x03\x00',False) #01.30 CIKIS TELEPORTU
-			inject_joymax( 0x705A,b'\x88\x59\x40\x0C\x03\x00',False) #11.30 CIKIS TELEPORTU
-		elif msg == "SELKET":
-
-			log("Plugin: SELKET ODASINA ISINLANDI..")
-
-			inject_joymax( 0x705A,b'\x08\x89\x2D\x0B\x03\x00',False) #21.30 TELEPORT
-			inject_joymax( 0x705A,b'\x71\x31\x7D\x0B\x03\x00',False) #01.30 TELEPORTU
-			inject_joymax( 0x705A,b'\x85\x59\x40\x0C\x03\x00',False) #11.30 TELEPORTU
-
-		elif msg == "SELKETC":
-
-			log("Plugin: SELKET ODASINDAN ISINLANDI..")
-
-			inject_joymax( 0x705A,b'\x09\x89\x2D\x0B\x03\x00',False) #21.30 CIKIS TELEPORTU
-			inject_joymax( 0x705A,b'\x72\x31\x7D\x0B\x03\x00',False) #01.30 CIKIS TELEPORTU
-			inject_joymax( 0x705A,b'\x86\x59\x40\x0C\x03\x00',False) #11.30 CIKIS TELEPORTU
-
-		elif msg == "ANUBIS":
-
-			log("Plugin: ANUBIS ODASINA ISINLANDI..")
-
-			inject_joymax( 0x705A,b'\x73\xA5\x54\x0B\x03\x00',False) #23.30 TELEPORTU
-			inject_joymax( 0x705A,b'\x62\x70\xA4\x0B\x03\x00',False) #03.30 TELEPORTU
-
-		elif msg == "ANUBISC":
-
-			log("Plugin: ANUBIS ODASINDAN ISINLANDI..")
-
-			inject_joymax( 0x705A,b'\x74\xA5\x54\x0B\x03\x00',False) #23.30 CIKIS TELEPORTU
-			inject_joymax( 0x705A,b'\x63\x70\xA4\x0B\x03\x00',False) #03.30 CIKIS TELEPORTU
-		elif msg == "ISIS":
-
-			log("Plugin: ISIS ODASINA ISINLANDI..")
-			
-			inject_joymax( 0x705A,b'\x75\xA5\x54\x0B\x03\x00',False) #23.30 TELEPORTU
-			inject_joymax( 0x705A,b'\x64\x70\xA4\x0B\x03\x00',False) #03.30 TELEPORTU
-		elif msg == "ISISC":
-		
-			log("Plugin: ISIS ODASINDAN ISINLANDI..")
-			
-			inject_joymax( 0x705A,b'\x76\xA5\x54\x0B\x03\x00',False) #23.30 CIKIS TELEPORTU
-			inject_joymax( 0x705A,b'\x65\x70\xA4\x0B\x03\x00',False) #03.30 CIKIS TELEPORTU
-			
+	
 # 500MS DE BIR KONTROL ETTIRME
 
 def event_loop():
