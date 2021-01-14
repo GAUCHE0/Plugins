@@ -3,7 +3,7 @@ import QtBind
 
 pVersion = '0.0.1'
 pName = 'UltimateINFO'
-pUrl = ''
+pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateINFO.py'
 
 #GUI YAPILANDIRMASI
 gui = QtBind.init(__name__,pName)
@@ -18,7 +18,7 @@ btnUltimateTombala = QtBind.createButton(gui,'btnUltimateTombala_clicked',"    U
 btnUltimateArena = QtBind.createButton(gui,'btnUltimateArena_clicked',"     UltimateArena    ",600,180)
 btnIletisim = QtBind.createButton(gui,'btnIletisim_clicked',"   GAUCHE ILETISIM   ",600,250)
 lstInfo = QtBind.createList(gui,21,30,570,250)
-#BUTON ÝÞLEVLERÝ	
+#BUTON ISLEVLERI	
 def btnUltimateController_clicked():
 	QtBind.clear(gui,lstInfo)
 	QtBind.append(gui,lstInfo,'UltimateController:\n   # BU PLUGIN LIDER LISTESINE EKLENMIS CHARLARIN CHAT EKRANINDAN DIGER CHARLARA CESITLI\nISLEMLER YAPTIRIR.\n# GENEL DESTEK KOMUTLARI:\n - START : BOTU BASLAT.\n - STOP : BOTU DURDUR.\n - TRACE #OYUNCU : LIDERE YADA YAZDIGIN CHARA TRACE AT.\n - NOTRACE : TRACE DURDUR.\n - ZERK : ZERK HAZIRSA KULLAN.\n - RETURN : RETURN SCROLL KULLAN.\n - TP #A #B : A-B ARASI TELEPORT.\n - CHAT #CESIT #MESAJ : MESAJ GONDER\n - SETAREA #PosX? #PosY? #Range? #PosZ? :KASMA ALANI.\n - SETRADIUS #Radius? : RANGE DEGISTIR.\n - CAPE #RENK? : PVP MODU.\n - INJECT #Opcode #Encrypted? #Data? : PAKET ENJEKTE ET.')
