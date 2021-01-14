@@ -4,7 +4,7 @@ import json
 import os
 
 pName = 'UltimatePacketTooL'
-pVersion = '1.0'
+pVersion = '0.0.1'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimatePacketTool.py"
 
 # ______________________________ KURULUM ______________________________ #
@@ -12,7 +12,7 @@ pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimatePacketToo
 # KULLANICI ARAYUZU
 gui = QtBind.init(__name__,pName)
 lblInject = QtBind.createLabel(gui,'PAKET ENJEKSIYON PLUGINI..',21,15)
-lblInject1 = QtBind.createLabel(gui,'GAUCHE TARAFINDAN DUZENLENMISTIR.',300,100)
+lblInject1 = QtBind.createLabel(gui,'UltimatePacketTooL:\n * GAUCHE TARAFINDAN DUZENLENMISTIR. \n * FEEDBACK SISTEMLI BIR YAZILIMDIR. \n * HATA VE ONERI BILDIRIMLERINIZI BANA ULASTIRABILIRSINIZ.',400,95)
 
 cbxSro = QtBind.createCheckBox(gui, 'cbxSro_clicked','CLIENT PAKETLERINI GOSTER [C->S]',250,13)
 cbxSro_checked = False
@@ -25,8 +25,8 @@ txtData = QtBind.createLineEdit(gui,"",163,45,450,20)
 cbxEncrypted = QtBind.createCheckBox(gui, 'cbxEnc_clicked','ENCRYPTED',620,47)
 btnInjectPacket = QtBind.createButton(gui,'btnInjectPacket_clicked',"  PAKETI ENJEKTE ET  ",348,65)
 
-cbxDontShow = QtBind.createCheckBox(gui, 'cbxDontShow_clicked',"FILTRELE",25,90)
-cbxOnlyShow = QtBind.createCheckBox(gui, 'cbxOnlyShow_clicked',"FILTRELEME",120,90)
+cbxDontShow = QtBind.createCheckBox(gui, 'cbxDontShow_clicked',"FILTRELEME",25,90)
+cbxOnlyShow = QtBind.createCheckBox(gui, 'cbxOnlyShow_clicked',"FILTRELE",120,90)
 QtBind.setChecked(gui,cbxDontShow,True) # using two checkbox like radiobutton
 cbxDontShow_checked = True
 lblOpcodes = QtBind.createLabel(gui,"EKLENEN OPCODE'LARI FILTRELE :",21,110)
