@@ -1,7 +1,7 @@
 from phBot import *
 import QtBind
 
-pVersion = '0.0.1'
+pVersion = '0.0.2'
 pName = 'UltimateINFO'
 pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateINFO.py'
 
@@ -11,11 +11,12 @@ lblInfo = QtBind.createLabel(gui,"ULTIMATE PLUGINLERI HAKKINDA ACIKLAMALAR:",21,
 lblInfo2 = QtBind.createLabel(gui," - SPECIAL THANKS TO |JellyBitz| ABOUT PYTHON DEVELOPMENT..",400,11)
 btnUltimateController = QtBind.createButton(gui,'btnUltimateController_clicked',"  UltimateController  ",600,30)
 btnUltimateChat = QtBind.createButton(gui,'btnUltimateChat_clicked',"      UltimateChat      ",600,55)
-btnUltimateLocker = QtBind.createButton(gui,'btnUltimateLocker_clicked',"     UltimateLockeR    ",600,80)
-btnUltimatePacketTool = QtBind.createButton(gui,'btnUltimatePacketTool_clicked',"  UltimatePacketTooL ",600,105)
+btnUltimateLocker = QtBind.createButton(gui,'btnUltimateLocker_clicked',"     UltimateLockeR   ",600,80)
+btnUltimatePacketTool = QtBind.createButton(gui,'btnUltimatePacketTool_clicked',"  UltimatePacketTooL",600,105)
 btnUltimateUpdater = QtBind.createButton(gui,'btnUltimateUpdater_clicked',"    UltimateUpdater   ",600,130)
-btnUltimateTombala = QtBind.createButton(gui,'btnUltimateTombala_clicked',"    UltimateTombala   ",600,155)
-btnUltimateArena = QtBind.createButton(gui,'btnUltimateArena_clicked',"     UltimateArena    ",600,180)
+btnUltimateTombala = QtBind.createButton(gui,'btnUltimateTombala_clicked',"    UltimateTombala    ",600,155)
+btnUltimateArena = QtBind.createButton(gui,'btnUltimateArena_clicked',"      UltimateArena     ",600,180)
+btnUltimateAcademy = QtBind.createButton(gui,'btnUltimateAcademy_clicked',"    UltimateAcademy   ",600,205)
 btnIletisim = QtBind.createButton(gui,'btnIletisim_clicked',"   GAUCHE ILETISIM   ",600,250)
 lstInfo = QtBind.createList(gui,21,30,570,250)
 #BUTON ISLEVLERI	
@@ -42,6 +43,9 @@ def btnUltimateTombala_clicked():
 def btnUltimateArena_clicked():
 	QtBind.clear(gui,lstInfo)
 	QtBind.append(gui,lstInfo,'UltimateArena:\n    # BU PLUGIN ILE MEVCUT MANAGER UZERINDEN GIRILEN BUTUN CHARLAR OTOMATIK ARENAYA\nKAYIT YAPARLAR.\n\n - RANDOM ARENA\n - PT ARENA\n - JOB ARENA\n - GUILD ARENA')
+def btnUltimateAcademy_clicked():
+	QtBind.clear(gui,lstInfo)
+	QtBind.append(gui,lstInfo,'UltimateAcademy:\n    # BU PLUGIN ILE;\n - CHAR OLUSTURMA (ISTEDIGINIZ IRKTA, NICKLE VE SIRAYLA),\n - CHAR SILME (40-100 LVL ARASI),\n - AKADEMIDE OLAN CHARLARI SILMEDEN TEKRAR OYUNA GIRME (40-50 LVL ARASI)\nISLEVLERINI YAPTIRABILIRSINIZ.\n    # ID ICERISINDE CHAR ALANI KALMADIGINDA;\n - BOTU KAPATMA,\n - PHBOT BILDIRIMLERINDE GOSTERME,\n - DOSYA YOLUNU BELIRTTIGINIZ SESI CALMA (.waw UZANTILI),\n - LOG DOSYASI OLUSTURMA\nOZELLIKLERI BULUNMAKTADIR. ')
 def btnIletisim_clicked():
 	QtBind.clear(gui,lstInfo)
 	QtBind.append(gui,lstInfo,'- ILETISIM:\n   # DISCORD: "GAUCHE#8710"\n   # E-MAIL: "can.berk.cetin@hotmail.com.tr"\n\n- SOSYAL MEDYA:\n    # INSTAGRAM: "can.berk.cetin"\n    # YOUTUBE: "JoySro Hazar GAUCHE" ')
