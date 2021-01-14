@@ -20,7 +20,7 @@ import os
 
 pName = 'UltimateController'
 
-pVersion = '1.3'
+pVersion = '0.0.1'
 
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 
@@ -40,31 +40,21 @@ followDistance = 0
 
 # KULLANICI ARAYUZU 1.SAYFA
 
-gui = QtBind.init(__name__,pName+"1")
+gui = QtBind.init(__name__,pName)
 
-lblxControl01 = QtBind.createLabel(gui,' * GAUCHE TARAFINDAN DUZENLENMISTIR. \n * FEEDBACK SISTEMLI BIR YAZILIMDIR. \n * HATA VE ONERI BILDIRIMLERINIZI BANA ULASTIRABILIRSINIZ.\n         E-Mail : can.berk.cetin@hotmail.com.tr \n * LIDER LISTESINE KOMUT VERECEK CHARI EKLEYEREK KULLANILIR.\n\n DESTEK KOMUTLARI :\n - START : BOTU BASLAT.\n - STOP : BOTU DURDUR.\n - TRACE #OYUNCU : LIDERE YADA YAZDIGIN CHARA TRACE AT.\n - NOTRACE : TRACE DURDUR.\n - SETAREA #PosX? #PosY? #Range? #PosZ? :KASMA ALANI.\n - SETRADIUS #Radius? : RANGE DEGISTIR.\n - SIT : OTUR - KALK.\n - CAPE #RENK? : PVP MODU.\n - ZERK : ZERK HAZIRSA KULLAN.\n - RETURN : RETURN SCROLL KULLAN.\n - TP #A #B : A-B ARASI TELEPORT.\n - INJECT #Opcode #Encrypted? #Data? : PAKET ENJEKTE ET.\n - CHAT #CESIT #MESAJ : MESAJ GONDER.',21,11)
+lblxControl01 = QtBind.createLabel(gui,'UltimateController:\n * GAUCHE TARAFINDAN DUZENLENMISTIR. \n * FEEDBACK SISTEMLI BIR YAZILIMDIR. \n * HATA VE ONERI BILDIRIMLERINIZI BANA ULASTIRABILIRSINIZ.',200,150)
 
-lblxControl02 = QtBind.createLabel(gui,' - MOVEON #RANGE? : MEVCUT KOOR. BELIRLE.\n - FOLLOW #OYUNCU? #MESAFE? :OYUN TRACE MODU.\n - NOFOLLOW : OYUN TRACE DURDUR.\n - PROFILE #ISIM? : PROFIL YUKLE.\n - JUMP : YATIR EFEKTÄ°.\n - DC : OYUNDAN DUSUR.\n - MOUNT #CESIT? : PET ACTIR.\n - DISMOUNT #CESIT? : PET KAPAT. \n - GETOUT : PARTIDEN AYRIL.\n - RECALL #SEHIR : SEHIRE KAYIT ET.\n - SETSCRIPT #DOSYA YOLU : SCRIPT DEGISTIR.\n - WALK : YURUME MODU.\n - RUN : KOSMA MODU ',345,101)
+cbxEnabled = QtBind.createCheckBox(gui,'cbxTarget','TARGET MODUNU AKTIF ET',156,15)
 
-cbxEnabled = QtBind.createCheckBox(gui,'cbxDoNothing','TARGET MODUNU AKTIF ET',356,15)
+cbxDefensive = QtBind.createCheckBox(gui,'cbxDefensive','DEFANSIF MODU AKTIF ET',156,30)
 
-cbxDefensive = QtBind.createCheckBox(gui,'cbxDoNothing','DEFANSIF MOD',356,30)
+tbxLeaders = QtBind.createLineEdit(gui,"",311,11,100,20)
 
-tbxLeaders = QtBind.createLineEdit(gui,"",511,11,100,20)
+lstLeaders = QtBind.createList(gui,311,32,176,48)
 
-lstLeaders = QtBind.createList(gui,511,32,176,48)
+btnAddLeader = QtBind.createButton(gui,'btnAddLeader_clicked',"LIDER EKLE",412,10)
 
-btnAddLeader = QtBind.createButton(gui,'btnAddLeader_clicked',"    EKLE    ",612,10)
-
-btnRemLeader = QtBind.createButton(gui,'btnRemLeader_clicked',"     SIL     ",560,79)
-
-# KULLANICI ARAYUZU 2. SAYFA (+)
-
-gui_ = QtBind.init(__name__,pName+"2")
-
-lblxControl01 = QtBind.createLabel(gui_,' # DESTEK KOMUTLARI :\n - HXY : HOTAN FORTRESS TELEPORT KODU.\n - JXY : JANGAN FORTRESS TELEPORT KODU.\n #X : BULUNDUGUN GATE NUMARASI.\n #Y : GIDECEGIN GATE NUMRASI.\n \n - COME : MEYDAN OKUMA EFEKTI.\n - MERHABA : SELAMLAMA EFEKTI.\n - DRUG : DRUG SCROLL KULLANIMI.(ENVANTER 1.SAYFA 27.SLOT)\n - RES : RES SCROLL KULLANIMI.(ENVANTER 1.SAYFA 28.SLOT)\n - DAMAGEINC : DAMAGE INCREASE SCROLL KULLANIMI.(ENVANTER 1.SAYFA 29.SLOT)\n - DAMAGEABS : DAMAGE ABSORPTION SCROLL KULLANIMI.(ENVANTER 1.SAYFA 30.SLOT)\n - HP : HP SCROLL KULLANIMI.(ENVANTER 1.SAYFA 31.SLOT)\n - MP : MP SCROLL KULLANIMI.(ENVANTER 1.SAYFA 32.SLOT) \n * NOT: SCROLL KULLANIMI ICIN ENVANTERDE GEREKLI SLOTLARA KONULMALIDIR..',21,11)
-
-lblxControl02 = QtBind.createLabel(gui_,' # TARGET MODU DESTEK KOMUTLARI : \n - TARGET ON : TARGET MODUNU AKTIF ET.\n - TARGET OFF : TARGET MODUNU DEAKTIF ET.\n - DEFF ON : DEFANS MODU AKTIF ET.\n - DEFF OFF : DEFANS MODU DEAKTIF ET. ',491,11)
+btnRemLeader = QtBind.createButton(gui,'btnRemLeader_clicked',"LIDER SIL",360,79)
 
 # ______________________________ Methods ______________________________ #
 
@@ -106,6 +96,7 @@ def loadDefaultConfig():
 
 	QtBind.setChecked(gui,cbxDefensive,False)
 
+	
 # ONCEKI KAYITLI TUM CONFIGLERI YUKLEME
 
 def loadConfigs():
@@ -684,10 +675,7 @@ def handle_joymax(opcode, data):
 
 						Inject_SelectTarget(AttackerID)
 
-	return True
-
-
-
+	return True		
 # TUM MESAJ KANALLARINDA KONTROL EDILEBILIR DURUMDA
 
 def handle_chat(t,player,msg):
