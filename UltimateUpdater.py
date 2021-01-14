@@ -6,7 +6,7 @@ import os
 import shutil
 
 pName = 'UltimateUpdater'
-pVersion = '1.1'
+pVersion = '0.0.1'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateUpdater.py"
 
 # ______________________________ YUKLME ______________________________ #
@@ -18,8 +18,7 @@ lvwPlugins = QtBind.createList(gui,21,30,700,200)
 lstPluginsData = []
 btnCheck = QtBind.createButton(gui,'btnCheck_clicked',"  GUNCELLEMELERI KONTROL ET  ",300,8)
 btnUpdate = QtBind.createButton(gui,'btnUpdate_clicked',"  SECILEN PLUGINI GUNCELLE  ",480,8)
-lblPlugins2 = QtBind.createLabel(gui,"\n * GAUCHE TARAFINDAN DUZENLENMISTIR.",21,250)
-lblPlugins4 = QtBind.createLabel(gui," BILGSAYARINIZDA GITHUB.COM UZERINDEN YAYINLANAN HER HANGI BIR YAZILIMCININ PLUGININI BULDUGU TAKTIRDE GUNCELLER..",21,235)
+lblPlugins2 = QtBind.createLabel(gui,"UltimateUpdater:\n * GAUCHE TARAFINDAN DUZENLENMISTIR. \n * FEEDBACK SISTEMLI BIR YAZILIMDIR. \n * HATA VE ONERI BILDIRIMLERINIZI BANA ULASTIRABILIRSINIZ.",21,230)
 # ______________________________ METHODLAR ______________________________ #
 
 # PLUGIN KLASORUNU KONTROL ETME
