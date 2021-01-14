@@ -9,7 +9,7 @@ import subprocess
 
 pName = 'UltimateAcademy'
 pVersion = '0.0.1'
-pUrl = ''
+pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateAcademy.py'
 
 # KULLANICI AYARLARI
 SIRA_VARSAYILAN_NUMARA = 1 
@@ -347,7 +347,7 @@ def RestartBotWithCommandLine():
 def handle_joymax(opcode,data):
 	# SERVER_CHARACTER_SELECTION_RESPONSE
 	if opcode == 0xB007 and QtBind.isChecked(gui,cbxAktifEt):
-		# PAKET AYRIﬁTIRMAYI F›LTRELE
+		# PAKET AYRI√ûTIRMAYI F√ùLTRELE
 		locale = get_locale()
 		try:
 			global isCreatingCharacter, isDeletingCharacter
