@@ -4,27 +4,23 @@ import json
 import os
 
 pName = 'UltimatePacketTooL'
-pVersion = '0.0.1'
+pVersion = '0.0.2'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimatePacketTool.py"
 
 # ______________________________ KURULUM ______________________________ #
-
 # KULLANICI ARAYUZU
 gui = QtBind.init(__name__,pName)
 lblInject = QtBind.createLabel(gui,'PAKET ENJEKSIYON PLUGINI..',21,15)
 lblInject1 = QtBind.createLabel(gui,'UltimatePacketTooL:\n * GAUCHE TARAFINDAN DUZENLENMISTIR. \n * FEEDBACK SISTEMLI BIR YAZILIMDIR. \n * HATA VE ONERI BILDIRIMLERINIZI BANA ULASTIRABILIRSINIZ.',400,95)
-
 cbxSro = QtBind.createCheckBox(gui, 'cbxSro_clicked','CLIENT PAKETLERINI GOSTER [C->S]',250,13)
 cbxSro_checked = False
 cbxJmx = QtBind.createCheckBox(gui, 'cbxJmx_clicked','SERVER PAKETLERINI GOSTER [S->C]',450,13)
 cbxJmx_checked = False
-
 lblUsing = QtBind.createLabel(gui,'OPCODE:\t               DATA:',35,47)
 txtOpcode = QtBind.createLineEdit(gui,"",85,45,40,20)
 txtData = QtBind.createLineEdit(gui,"",163,45,450,20)
 cbxEncrypted = QtBind.createCheckBox(gui, 'cbxEnc_clicked','ENCRYPTED',620,47)
 btnInjectPacket = QtBind.createButton(gui,'btnInjectPacket_clicked',"  PAKETI ENJEKTE ET  ",348,65)
-
 cbxDontShow = QtBind.createCheckBox(gui, 'cbxDontShow_clicked',"FILTRELEME",25,90)
 cbxOnlyShow = QtBind.createCheckBox(gui, 'cbxOnlyShow_clicked',"FILTRELE",120,90)
 QtBind.setChecked(gui,cbxDontShow,True) # using two checkbox like radiobutton
@@ -34,23 +30,18 @@ tbxOpcodes = QtBind.createLineEdit(gui,"",21,129,100,20)
 lstOpcodes = QtBind.createList(gui,21,151,176,109)
 btnAddOpcode = QtBind.createButton(gui,'btnAddOpcode_clicked',"      EKLE     ",123,129)
 btnRemOpcode = QtBind.createButton(gui,'btnRemOpcode_clicked',"      SIL       ",70,259)
-
 lblNpcs = QtBind.createLabel(gui,"YAKINDAKI NPCLER :",250,135)
 btnNpcs = QtBind.createButton(gui,'btnNpcs_clicked',"  LISTEYI YENILE  ",569,252)
 lstNpcs = QtBind.createList(gui,250,151,400,100)
-
 # ______________________________METHODLAR ______________________________ #
-
 # CLIENT PAKETLERINI GOSTER CHECKBOX KONTROLU
 def cbxSro_clicked(checked):
 	global cbxSro_checked
 	cbxSro_checked = checked
-
 #  SERVER PAKETLERINI GOSTER CHECKBOX KONTROLU
 def cbxJmx_clicked(checked):
 	global cbxJmx_checked
 	cbxJmx_checked = checked
-
 # BUTONA BASILDIGINDA PAKET ENKEKTE ET
 def btnInjectPacket_clicked():
 	strOpcode = QtBind.text(gui,txtOpcode)
@@ -67,21 +58,17 @@ def btnInjectPacket_clicked():
 		encrypted = QtBind.isChecked(gui,cbxEncrypted)
 		log("Plugin: PAKET ENJEKTE EDILIYOR : ("+pName+")")
 		inject_joymax(opcode,Packet,encrypted)
-
 # CONFIG DOSYASINDAN DEVAM ET (JSON)
 def getConfig():
 	return get_config_dir()+pName+".json"
-
 # FILTRELEME CHECKBOX KONTROLU
 def cbxDontShow_clicked(checked):
 	cbxDontShow_editConfig(checked)
 	QtBind.setChecked(gui,cbxOnlyShow,not checked)
-	
 # FILTRELE CHECKBOX KONTROLU
 def cbxOnlyShow_clicked(checked):
 	cbxDontShow_editConfig(not checked)
 	QtBind.setChecked(gui,cbxDontShow,not checked)
-
 # FILTRELEME ISARETLIYSE YAPILACAKLAR
 def	cbxDontShow_editConfig(checked):
 	global cbxDontShow_checked
@@ -98,12 +85,10 @@ def	cbxDontShow_editConfig(checked):
 	with open(getConfig(),"w") as f:
 		# JSON OLARAK KAYIT ETMEK
 		f.write(json.dumps(data, indent=4, sort_keys=True))
-
 # VARSAYILAN CONFIG AYARLARI
 def loadDefaultConfig():
 	# Clear data
 	QtBind.clear(gui,lstOpcodes)
-
 # CONFIDDE KAYITLI OPCODELARI TANIMLAMAK
 def loadConfigs():
 	loadDefaultConfig()
@@ -118,8 +103,7 @@ def loadConfigs():
 			global cbxDontShow_checked
 			cbxDontShow_checked = data["DontShow"]
 			QtBind.setChecked(gui,cbxDontShow,data["DontShow"])
-			QtBind.setChecked(gui,cbxOnlyShow,not data["DontShow"])
-		
+			QtBind.setChecked(gui,cbxOnlyShow,not data["DontShow"])		
 # LISTEDE OPCODE VARSA DEVAM ET
 def lstOpcodes_exists(opcode):
 	strOpcode = '0x{:02X}'.format(opcode)
@@ -128,7 +112,6 @@ def lstOpcodes_exists(opcode):
 		if opcodes[i] == strOpcode:
 			return True
 	return False
-	
 # EKLE BUTONUNA TIKLANDIGINDA
 def btnAddOpcode_clicked():
 	opcode = int(QtBind.text(gui,tbxOpcodes),16)
@@ -148,7 +131,6 @@ def btnAddOpcode_clicked():
 		# BARASIYLA KAYDEDILIRSE
 		QtBind.setText(gui, tbxOpcodes,"")
 		log("Plugin: OPCODE EKLENDI [0x"+'{:02X}'.format(opcode)+"]")
-
 # SIL BUTONUNA BASILDIGINDA
 def btnRemOpcode_clicked():
 	selectedItem = QtBind.text(gui,lstOpcodes)
@@ -165,7 +147,6 @@ def btnRemOpcode_clicked():
 				pass 
 		QtBind.remove(gui,lstOpcodes,selectedItem)
 		log("Plugin: OPCODE SILINDI ["+selectedItem+"]")
-
 # LOGDA PAKETLERI GOSTERME
 def show_packet(opcode):
 	if lstOpcodes_exists(opcode):
@@ -174,21 +155,17 @@ def show_packet(opcode):
 	elif cbxDontShow_checked:
 		return True
 	return False
-
 # ______________________________ ETKINLIKLER ______________________________ #
-
 def handle_silkroad(opcode, data):
 	if cbxSro_checked:
 		if show_packet(opcode):
 			log("Client: (OPCODE) 0x" + '{:02X}'.format(opcode) + " (DATA) "+ ("None" if not data else ' '.join('{:02X}'.format(x) for x in data)))
 	return True
-
 def handle_joymax(opcode, data):
 	if cbxJmx_checked:
 		if show_packet(opcode):
 			log("Server: (OPCODE) 0x" + '{:02X}'.format(opcode) + " (DATA) "+ ("None" if not data else ' '.join('{:02X}'.format(x) for x in data)))
-	return True
-		
+	return True	
 def btnNpcs_clicked():
 	npcs = get_npcs()
 	QtBind.clear(gui,lstNpcs)
