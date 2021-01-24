@@ -8,25 +8,21 @@ import os
 import subprocess
 
 pName = 'UltimateAcademy'
-pVersion = '0.0.1'
+pVersion = '0.0.2'
 pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateAcademy.py'
 
 # KULLANICI AYARLARI
 SIRA_VARSAYILAN_NUMARA = 1 
 BILDIRIM_SES_YOLU = 'c:\\Windows\\Media\\Speech On.wav'
-
 # ______________________________ YUKLEMELER ______________________________ #
-
 # EVRENSEL
 isCreatingCharacter = False
 isDeletingCharacter = False
 CreatingNickname = ""
 isRestarted = False
-
 # KULLANICI ARAYUZU
 gui = QtBind.init(__name__,pName)
 cbxAktifEt = QtBind.createCheckBox(gui,'cbxDoNothing','AKTIF ET',6,9)
-
 # PROFILLER
 _x = 350
 _y = 10
@@ -34,7 +30,6 @@ lblProfil = QtBind.createLabel(gui,"CONFIG PROFIL ISMI :",_x-10,_y)
 tbxProfil = QtBind.createLineEdit(gui,"",_x+102,_y-3,110,19)
 btnKaydet = QtBind.createButton(gui,'btnKaydet_clicked',"  KAYDET  ",_x+102+110+3,_y-5)
 btnYukle = QtBind.createButton(gui,'btnYukle_clicked',"  YUKLE  ",_x+102+110+3+75,_y-5)
-
 # TEMEL CONFIG
 _x = 6
 _y = 40
@@ -44,7 +39,6 @@ _y+=20
 cbxCharKur = QtBind.createCheckBox(gui,'cbxDoNothing','OLUSTUR ( SECILECEK CHAR YOKSA )',_x,_y-1)
 _y+=20
 cbxCharSil = QtBind.createCheckBox(gui,'cbxDoNothing','SIL ( EGER 40-100 LVL ARASINDAYSA )',_x,_y-1)
-
 # DETAYLI CONFIG
 _x = 518
 _y = 40
@@ -58,7 +52,6 @@ lblIrk = QtBind.createLabel(gui,"IRK :",_x-5,_y)
 cmbxIrk = QtBind.createCombobox(gui,_x+95,_y-3,102,19)
 QtBind.append(gui,cmbxIrk,"CH")
 QtBind.append(gui,cmbxIrk,"EU")
-
 # DIGER AKSIYONLAR
 _y = 130
 _x = 6
@@ -75,42 +68,33 @@ cbxSes_Full = QtBind.createCheckBox(gui,'cbxDoNothing','SES CAL.  DOSYA YOLU : '
 tbxSes_Full = QtBind.createLineEdit(gui,'',155,_y-1,240,19)
 _y+=20
 cbxLog_Full = QtBind.createCheckBox(gui,'cbxDoNothing','LOG DOSYASI OLUSTUR',_x+9,_y)
-
 # ______________________________ METHODLAR ______________________________ #
-
 # KLASOR YOLUNDAN DEVAM ET
 def getPath():
 	return get_config_dir()+pName+"\\"
-
 # CHAR CONFIG YOLUNDAN DEVAM ET
 def getConfig(name):
 	if not name:
 		name = pName;
 	return getPath()+name+".json"
-
 # VARSAYILAN CONFIGLERI YUKLE
 def loadDefaultConfig():
 	# DATAYI TEMIZLE
 	QtBind.setText(gui,tbxProfil,"")
 	QtBind.setChecked(gui,cbxAktifEt,False)
-
 	QtBind.setChecked(gui,cbxCharSec,True)
 	QtBind.setChecked(gui,cbxCharKur,True)
 	QtBind.setChecked(gui,cbxCharSil,True)
 	QtBind.setChecked(gui,cbxAkademideCharSec,False)
-
 	QtBind.setText(gui,tbxNick,"")
 	QtBind.setText(gui,tbxSira,str(SIRA_VARSAYILAN_NUMARA))
 	QtBind.setText(gui,cmbxIrk,"CH")
-
 	QtBind.setText(gui,tbxCMD,"")
 	QtBind.setChecked(gui,cbxBildirimler_Full,False)
 	QtBind.setChecked(gui,cbxSes_Full,False)
 	QtBind.setText(gui,tbxSes_Full,BILDIRIM_SES_YOLU)
 	QtBind.setChecked(gui,cbxLog_Full,False)
-
 	QtBind.setChecked(gui,cbxCikis,False)
-
 # KAYITLI CONFIGLERI YUKLE
 def loadConfigs(fileName=""):
 	# CONFIG RESETLE
@@ -120,13 +104,10 @@ def loadConfigs(fileName=""):
 		data = {}
 		with open(getConfig(fileName),"r") as f:
 			data = json.load(f)
-
 		# TUM DATAYI YUKLE
 		QtBind.setText(gui,tbxProfil,fileName)
-
 		if "AKTIF ET" in data and data['AKTIF ET']:
 			QtBind.setChecked(gui,cbxAktifEt,True)
-
 		if "CharSec" in data and not data['CharSec']:
 			QtBind.setChecked(gui,cbxCharSec,False)
 		if "CharKur" in data and not data['CharKur']:
@@ -135,14 +116,12 @@ def loadConfigs(fileName=""):
 			QtBind.setChecked(gui,cbxCharSil,False)
 		if "AkademideCharSec" in data and data['AkademideCharSec']:
 			QtBind.setChecked(gui,cbxAkademideCharSec,True)
-
 		if "Nick" in data:
 			QtBind.setText(gui,tbxNick,data["Nick"])
 		if "SIRA" in data and data["SIRA"]:
 			QtBind.setText(gui,tbxSira,data["SIRA"])
 		if "IRK" in data:
 			QtBind.setText(gui,cmbxIrk,data["IRK"])
-
 		if "CMD" in data:
 			QtBind.setText(gui,tbxCMD,data["CMD"])
 		if "BILDIRIMFULL" in data and data['BILDIRIMFULL']:
@@ -153,24 +132,19 @@ def loadConfigs(fileName=""):
 			QtBind.setText(gui,tbxSes_Full,data["SESFULLYOLU"])
 		if "LOGFULL" in data and data['LOGFULL']:
 			QtBind.setChecked(gui,cbxLog_Full,True)
-
 		if "CIKIS" in data and data['CIKIS']:
-			QtBind.setChecked(gui,cbxCikis,True)
-		
+			QtBind.setChecked(gui,cbxCikis,True)		
 		return True
 	return False
-
 # OPSIYONEL AYARLARI KAYDET
 def saveConfigs(fileName=""):
 	data = {}
 	# TUM DATAYI KAYDET
 	data["AKTIF ET"] = QtBind.isChecked(gui,cbxAktifEt)
-
 	data["CharSec"] = QtBind.isChecked(gui,cbxCharSec)
 	data["CharKur"] = QtBind.isChecked(gui,cbxCharKur)
 	data["CharSil"] = QtBind.isChecked(gui,cbxCharSil)
 	data["AkademideCharSec"] = QtBind.isChecked(gui,cbxAkademideCharSec)
-
 	data["Nick"] = QtBind.text(gui,tbxNick)
 	sequence = QtBind.text(gui,tbxSira)
 	if sequence.isnumeric():
@@ -179,7 +153,6 @@ def saveConfigs(fileName=""):
 		data["SIRA"] = str(SIRA_VARSAYILAN_NUMARA)
 		QtBind.setText(gui,tbxSira,data["SIRA"])
 	data["IRK"] = QtBind.text(gui,cmbxIrk)
-
 	data["CMD"] = QtBind.text(gui,tbxCMD)
 	data["BILDIRIMFULL"] = QtBind.isChecked(gui,cbxBildirimler_Full)
 	data["SESFULL"] = QtBind.isChecked(gui,cbxSes_Full)
@@ -189,7 +162,6 @@ def saveConfigs(fileName=""):
 	# YENIDEN YAZMA
 	with open(getConfig(fileName),"w") as f:
 		f.write(json.dumps(data,indent=4,sort_keys=True))
-
 # BUTON ETKINLIGI
 def btnKaydet_clicked():
 	# CONFIG ISMINI KONTROL ET
@@ -199,7 +171,6 @@ def btnKaydet_clicked():
 		log('Plugin: Profile : ['+strConfigName+'] CONFIG KAYDEDILDI.')
 	else:
 		log("Plugin: CONFIG KAYDEDILDI.")
-		
 # BUTON ETKINLIGI
 def btnYukle_clicked():
 	# CONFIG ISMINI KONTROL ET
@@ -211,14 +182,12 @@ def btnYukle_clicked():
 			log("Plugin: CONFIG YUKLENDI.")
 	elif strConfigName:
 		log("Plugin: Profile : ["+strConfigName+"] BULUNAMADI.")
-
 # CHAR OLUSTURMA
 def CreateCharacter():
 	# SINIF SECIMI
 	race = QtBind.text(gui,cmbxIrk)
 	if race != 'EU':
 		race = 'CH'
-
 		model = get_monster_string('CHAR_CH_MAN_ADVENTURER')['model']
 		chest = get_item_string('ITEM_CH_M_HEAVY_01_BA_A_DEF')['model']
 		legs = get_item_string('ITEM_CH_M_HEAVY_01_LA_A_DEF')['model']
@@ -226,7 +195,6 @@ def CreateCharacter():
 		weapon = get_item_string('ITEM_CH_SWORD_01_A_DEF')['model']
 	else:
 		race = 'EU'
-
 		model = get_monster_string('CHAR_EU_MAN_NOBLE')['model']
 		chest = get_item_string('ITEM_EU_M_HEAVY_01_BA_A_DEF')['model']
 		legs = get_item_string('ITEM_EU_M_HEAVY_01_LA_A_DEF')['model']
@@ -236,7 +204,6 @@ def CreateCharacter():
 	if model == 0 or chest == 0 or legs == 0 or shoes == 0 or weapon == 0:
 		log('Plugin: HATA,SUNUCUDA ITEM KODLARI DEGISTIRILMIS.')
 		return
-
 	global isCreatingCharacter
 	isCreatingCharacter = True
 	log('Plugin: CHAR OLUSTURULUYOR ['+CreatingNickname+'] ('+race+')')
@@ -251,28 +218,23 @@ def CreateCharacter():
 	p += struct.pack('I', weapon)
 	# CHAR OLUSTURMAYI DENEME
 	inject_joymax(0x7007,p, False)
-
 	# CHAR LISTESI ICIN 2.5SN BEKLEME
 	Timer(2.5,Inject_RequestCharacterList).start()
-
 # PAKET ENJEKSIYON
 def Inject_RequestCharacterList():
 	inject_joymax(0x7007,b'\x02',False)
-
 # PAKET ENJEKSIYON
 def Inject_DeleteCharacter(charName):
 	p = b'\x03'
 	p += struct.pack('H', len(charName))
 	p += charName.encode('ascii')
 	inject_joymax(0x7007,p, False)
-
 # PAKET ENJEKSIYON
 def Inject_CheckName(charName):
 	p = b'\x04'
 	p += struct.pack('H', len(charName))
 	p += charName.encode('ascii')
 	inject_joymax(0x7007,p, False)
-
 # RANDOM CHAR ISMI OLUSTURMA (MALE)
 def GetRandomNick():
 	# 12 HARFLI ISIM EKLEME
@@ -286,7 +248,6 @@ def GetRandomNick():
 		numbers = pow(10,maxWidth)-1
 		name = str(name)+(str(random.randint(0,numbers))).zfill(maxWidth)
 	return name
-
 # KAYITLI CHAR SIRASINI GORUP 1 SAYI UZERINI OLUSTURMAK VEYA DATA KAYITLI DEGILSE 1 DEN BASLATMAK
 def GetSequence():	
 	sequence = QtBind.text(gui,tbxSira)
@@ -295,12 +256,9 @@ def GetSequence():
 		sequence = int(sequence)
 	else:
 		sequence = SIRA_VARSAYILAN_NUMARA
-
 	QtBind.setText(gui,tbxSira,str(sequence+1))
 	saveConfigs(QtBind.text(gui,tbxProfil))
-	
 	return sequence
-
 # ISIM UZUNLUGUNU VE SAYISINI KONTROL EDIP DEVAM ETMEK
 def GetNickSequence(nickname):
 	seq = str(GetSequence())
@@ -310,7 +268,6 @@ def GetNickSequence(nickname):
 		nickLength -= 12
 		nick = nickname[:-nickLength]+seq
 	return nick
-
 # ISIM VARSA KONTROL ETMEK
 def createNickname():
 	global CreatingNickname
@@ -321,13 +278,10 @@ def createNickname():
 		CreatingNickname = GetRandomNick()
 	log("Plugin: NICK KONTROL EDILIYOR ["+CreatingNickname+"]")
 	Inject_CheckName(CreatingNickname)
-
 # BOTU SONLANDIRMAK
 def KillBot():
 	log("Plugin: BOT KAPATILIYOR..")
-
 	os.kill(os.getpid(),9)
-
 # BUNUNLA AYNI KOMUT SATIRI ARGUMANLARINA SAHIP BIR BOT CALISTIR
 def RestartBotWithCommandLine():
 	# YALNIZCA BIR KEZ YURUTULEBILECEGINI GOSTEREN BAYRAK
@@ -342,12 +296,11 @@ def RestartBotWithCommandLine():
 	# BOTU KAPATMAK ICIN ZAMANLAYICI BASLATMA
 	log("Plugin: BOT 5 SANIYE ICINDE KAPATILIYOR..")
 	Timer(5.0,KillBot).start()
-
 # ______________________________ ETKINLIKLER ______________________________ #
 def handle_joymax(opcode,data):
 	# SERVER_CHARACTER_SELECTION_RESPONSE
 	if opcode == 0xB007 and QtBind.isChecked(gui,cbxAktifEt):
-		# PAKET AYRIÞTIRMAYI FÝLTRELE
+		# PAKET AYRIŞTIRMAYI FİLTRELE
 		locale = get_locale()
 		try:
 			global isCreatingCharacter, isDeletingCharacter
@@ -402,7 +355,6 @@ def handle_joymax(opcode,data):
 							index+=2 # nick length
 							nickName = struct.unpack_from('<' + str(nickLength) + 's',data,index)[0].decode('cp1252')
 							index+= nickLength # nickname
-						
 						index+=1 # OLCEK
 						charLevel = data[index]
 						index+=1 # LEVEL
@@ -410,24 +362,18 @@ def handle_joymax(opcode,data):
 						index+=2 # STR
 						index+=2 # INT
 						index+=2 # STATS
-
 						if locale == 18 or locale == 54:
 							index+=4
-
 						index+=4 # HP
 						index+=4 # MP
-
 						if locale == 18 or locale == 54:
 							index+=2
-
 						charIsDeleting = data[index]
 						index+=1 # IsDeleting
 						if charIsDeleting:
 							index+=4
-
 						if locale == 18 or locale == 54:
 							index+=4
-						
 						index+=1 # guildMemberClass
 						# isGuildRenameRequired
 						if data[index]:
@@ -449,10 +395,8 @@ def handle_joymax(opcode,data):
 						for j in range(forCount):
 							index+=4 # RefItemID
 							index+=1 # plus
-						
 						# ONCEKI KARAKTER HAKKINDA BILGI GOSTER
 						log(str(i+1)+") "+charName+" (Lv."+str(charLevel)+")"+(" [*]" if charIsDeleting else ""))
-
 						# SILINEN CHARLARI KOSULLARDAN ATLATMA
 						if not charIsDeleting:
 							# CHARIN 40 LEVELDA OLUP OLMADIGI KOSULU
@@ -467,10 +411,8 @@ def handle_joymax(opcode,data):
 							if not deleteCharacter:
 								if charLevel >= 40 and charLevel <= 100:
 									deleteCharacter = charName
-
 					if locale == 18 or locale == 54:
 						index+=1 # unkByte01 / Remove warning
-
 					# PAKETIN BASARIYLA AYRISTIRILIP AYRISTIRILMADIGINI KONTROL ETME UYARISI
 					try:
 						if i == (nChars-1):
@@ -482,7 +424,6 @@ def handle_joymax(opcode,data):
 							# DUZGUN AYRISTIRMA
 						except:
 							log("Plugin: PAKET KISMEN AYRISTIRILDI.")
-
 					# KOSULLARI KONTROL ETME AYARI
 					# AYARI KONTROL ET
 					if selectCharacterAcademyReady and QtBind.isChecked(gui,cbxAkademideCharSec):
@@ -515,18 +456,15 @@ def handle_joymax(opcode,data):
 						else:
 							errMessage = "Plugin: YENI CHAR ACMAK ICIN ID'DE YETERLI ALAN YOK.."
 							log(errMessage)
-
 							# AKSIYONLARI KONTROL ET
 							cmd = QtBind.text(gui,tbxCMD)
 							if cmd:
 								log("Plugin: KOMUTU UYGULAMA DENENIYOR.. ["+cmd+"]")
 								# KILITLENMEYI ONLEMEK ICIN ARKA PLANDA CALISTIR
 								subprocess.Popen(cmd)
-
 							# BILDIRIM GOSTERMEYI DENE
 							if QtBind.isChecked(gui,cbxBildirimler_Full):
 								show_notification(pName+' v'+pVersion,errMessage)
-
 							# SES CAL
 							if QtBind.isChecked(gui,cbxSes_Full):
 								try:
@@ -535,7 +473,6 @@ def handle_joymax(opcode,data):
 									play_wav(path if path else BILDIRIM_SES_YOLU)
 								except:
 									pass
-
 							# DOSYAYA LOG OLUSTURMA
 							if QtBind.isChecked(gui,cbxLog_Full):
 								from datetime import datetime
@@ -544,7 +481,6 @@ def handle_joymax(opcode,data):
 								logText += '\nProfile being used: '+ (profileName if profileName else 'None')
 								with open(getPath()+'_log.txt','a') as f:
 									f.write(logText)
-
 							# BOTTAN CIKIS
 							if QtBind.isChecked(gui,cbxCikis):
 								log("BOT 5 SANIYE ICINDE KAPATILIYOR..")
@@ -554,10 +490,8 @@ def handle_joymax(opcode,data):
 			log("DESTEK ICIN ILETISIME GECINIZ..")
 			log("Data [" + ("None" if not data else ' '.join('{:02X}'.format(x) for x in data))+"] Locale ["+str(locale)+"]")
 	return True
-
 # PLUGIN YUKLENME MESAJI
 log('Plugin: '+pName+' v'+pVersion+' BASARIYLA YUKLENDI.')
-
 # CONFIG DOSYASI KONTROL ETME
 if os.path.exists(getPath()):
 	useDefaultConfig = True 
@@ -578,7 +512,6 @@ if os.path.exists(getPath()):
 				break
 	if useDefaultConfig:
 		loadConfigs()
-
 else:
 	loadDefaultConfig()
 	# CONFIG KLASORU OLUSTURMA
