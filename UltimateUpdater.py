@@ -6,11 +6,10 @@ import os
 import shutil
 
 pName = 'UltimateUpdater'
-pVersion = '0.0.1'
+pVersion = '0.0.2'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateUpdater.py"
 
 # ______________________________ YUKLME ______________________________ #
-
 # KULLANICI ARAYUZU
 gui = QtBind.init(__name__,pName)
 lblPlugins = QtBind.createLabel(gui,"BILGISAYARDA BULUNAN PLUGINLER :",21,11)
@@ -20,11 +19,9 @@ btnCheck = QtBind.createButton(gui,'btnCheck_clicked',"  GUNCELLEMELERI KONTROL 
 btnUpdate = QtBind.createButton(gui,'btnUpdate_clicked',"  SECILEN PLUGINI GUNCELLE  ",480,8)
 lblPlugins2 = QtBind.createLabel(gui,"UltimateUpdater:\n * GAUCHE TARAFINDAN DUZENLENMISTIR. \n * FEEDBACK SISTEMLI BIR YAZILIMDIR. \n * HATA VE ONERI BILDIRIMLERINIZI BANA ULASTIRABILIRSINIZ.",21,230)
 # ______________________________ METHODLAR ______________________________ #
-
 # PLUGIN KLASORUNU KONTROL ETME
 def GetPluginsFolder():
 	return str(os.path.dirname(os.path.realpath(__file__)))
-
 # AYNI KLASORDEKI TUM PLUGINLERI KONTROL ET VE LISTELE
 def btnCheck_clicked():
 	QtBind.clear(gui,lvwPlugins)
@@ -76,7 +73,6 @@ def btnCheck_clicked():
 					# GUI ICINE YERLESTIRME
 					QtBind.append(gui,lvwPlugins,pyInfo)
 					lstPluginsData.append(pData)
-
 # URL ILE AYNI VERSIYONA SAHIPSE DEVAM ET
 def getVersion(url):
 	try:
@@ -88,14 +84,12 @@ def getVersion(url):
 	except:
 		pass
 	return None
-
 # PCDEKI VERSIYON URLDEN DUSUKSE DEVAM ET
 def compareVersion(a, b):
 	# YALNIZCA NUMARALARA IZIN VERMEK
 	a = tuple(map(int, (a.split("."))))
 	b = tuple(map(int, (b.split("."))))
 	return a < b
-
 # SECILEN GUNCELLEMEYI YAPMAK
 def btnUpdate_clicked():
 	# SECILEN PLUGINI GETIR
@@ -124,6 +118,5 @@ def btnUpdate_clicked():
 					log('Plugin: "'+pyData['pName']+'" PLUGIN BASARI ILE GUNCELLENDI')
 			except:
 				log("Plugin: GUNCELLENIRKEN BIR HATA ILE KARSILASILDI, LUTFEN DAHA SONRA TEKRAR DENEYINIZ.")
-
 # PLUGIN YUKLENDI
 log('Plugin: '+pName+' v'+pVersion+' BASARIYLA YUKLENDI.')
