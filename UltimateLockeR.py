@@ -10,7 +10,7 @@ import os
 import subprocess
 
 pName = 'UltimateLockeR'
-pVersion = '0.0.1'
+pVersion = '0.0.2'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateLockeR.py"
 gui = QtBind.init(__name__,pName)
 lblPlugins2 = QtBind.createLabel(gui,"UltimateLockeR:\n * GAUCHE TARAFINDAN DUZENLENMISTIR. \n * FEEDBACK SISTEMLI BIR YAZILIMDIR. \n * HATA VE ONERI BILDIRIMLERINIZI BANA ULASTIRABILIRSINIZ.",11,31)
@@ -37,7 +37,7 @@ def getConfig(name):
 		name = pName;
 	return getPath()+name+".json"
 def loadDefaultConfig():
-	# Clear data
+	# DATAYI TEMİZLE
 	QtBind.setText(gui,tbxProfil,"")
 	QtBind.setText(gui,tbxPTMaster,"")
 	QtBind.setText(gui,tbxAMaster,"")
@@ -95,7 +95,7 @@ questionAcademyJID = 0
 # ______________________________ METHODLAR ______________________________ #
 # PAKET ENJEKSIYON
 def Inject_PartyMatchJoinResponse(requestID,joinID,response):
-	p = struct.pack('I', requestID)
+	p  	= struct.pack('I', requestID)
 	p += struct.pack('I', joinID)
 	p += struct.pack('B',1 if response else 0)
 	inject_joymax(0x306E,p,False)
