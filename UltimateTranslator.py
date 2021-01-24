@@ -8,8 +8,8 @@ import json
 import os
 
 pName = 'UltimateTranslator'
-pVersion = '0.0.1'
-pUrl = ''
+pVersion = '0.0.2'
+pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateTranslator.py'
 
 # ______________________________ KURULUM ______________________________ #
 URL_HOST = "https://phbot-xtranslator.jellybitz.repl.co/api/translate" # API server
