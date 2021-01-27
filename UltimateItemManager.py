@@ -10,7 +10,7 @@ import subprocess
 
 pVersion = 'v0.0.1'
 pName = 'UltimateItemManager'
-pUrl = ''
+pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateItemManager.py'
 
 # KURESELLER
 character_data = None
@@ -127,7 +127,7 @@ def getConfig(name):
         name = pName;
     return getPath()+name+".json"
 def loadDefaultConfig():
-    # DATAYI TEM›ZLE
+    # DATAYI TEM√ùZLE
     QtBind.setText(gui_,tbxProfil,"")
     QtBind.setText(gui_,tbxplayer,"")
     QtBind.setText(gui_,tbxparola,"")
