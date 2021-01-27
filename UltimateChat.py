@@ -6,7 +6,7 @@ import json
 import os
 
 pName = 'UltimateChat'
-pVersion = '0.0.2'
+pVersion = '0.0.3'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateChat.py"
 
 # ______________________________ KURULUM ______________________________ #
@@ -170,7 +170,6 @@ def FixEscapeComma(_array):
 	_len = len(_array)
 	i = 0
 	while i < _len:
-		# Check if any argument ends with '\'
 		if _array[i].endswith('\\') and i < (_len-1):
 			_array[i] = _array[i][:-1]+','+_array[i+1]
 			del _array[i+1]
@@ -285,12 +284,11 @@ def event_loop():
 				if message:
 					phBotChat.All(QtBind.text(gui__,tbxMsg))
 					QtBind.setText(gui__,lblCounter,str(int(QtBind.text(gui__,lblCounter))+1))
-# Plugin loaded
+# PLUGIN YUKLENDI
 log('Plugin: '+pName+' v'+pVersion+' BASARIYLA YUKLENDI')
 if os.path.exists(getPath()):
-	# Adding RELOAD plugin support
 	loadConfigs()
 else:
-	# Creating configs folder
+	# CONFIG DOSYASI OLUSTURULDU
 	os.makedirs(getPath())
 	log('Plugin: '+pName+' DOSYASI OLUSTURULDU.')
