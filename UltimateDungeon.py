@@ -9,7 +9,7 @@ import os
 
 pVersion = '0.0.1'
 pName = 'UltimateDungeon'
-pUrl = ''
+pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateDungeon.py'
 
 # ______________________________ KURULUM ______________________________ #
 DIMENSIONAL_COOLDOWN_DELAY = 18000 # SANIYE (2 SAAT)
