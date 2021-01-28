@@ -7,7 +7,7 @@ import json
 import os
 import subprocess
 
-pVersion = '0.0.3'
+pVersion = '0.0.4'
 pName = 'UltimateINFO'
 pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateINFO.py'
 
@@ -26,6 +26,7 @@ btnUltimateAcademy = QtBind.createButton(gui,'btnUltimateAcademy_clicked',"    U
 btnUltimatechanger = QtBind.createButton(gui,'btnUltimateChanger_clicked',"    UltimateChanger   ",601,30)
 btnUltimateItemManager = QtBind.createButton(gui,'btnUltimateItemManager_clicked',"  UltimateItemManager ",601,55)
 btnUltimateTranslator = QtBind.createButton(gui,'btnUltimateTranslator_clicked',"  UltimateTranslator ",601,80)
+btnUltimateDungeon = QtBind.createButton(gui,'btnUltimateDungeon_clicked',"  UltimateDungeon ",601,105)
 btnIletisim = QtBind.createButton(gui,'btnIletisim_clicked',"   GAUCHE ILETISIM   ",547,250)
 lstInfo = QtBind.createList(gui,21,30,470,250)
 #BUTON ISLEVLERI	
@@ -67,4 +68,7 @@ def btnUltimateItemManager_clicked():
 def btnUltimateTranslator_clicked():
 	QtBind.clear(gui,lstInfo)
 	QtBind.append(gui,lstInfo,'UltimateTranslator:\n    # BU PLUGIN ILE OYUN CHATINDAN GELEN HERHANGI BIR DILDEDKI YAZIYI\nISTEDIGINIZ BASKA BIR DILE CEVIREBILIR, TURKCE GONDERDIGINIZ YAZIYI KARSI\nTARAFA OTOMATIK SECTIGINIZ DILE CEVIREREK GONDERIR.')
+def btnUltimateDungeon_clicked():
+	QtBind.clear(gui,lstInfo)
+	QtBind.append(gui,lstInfo,'UltimateDungeon:\n    # BU PLUGIN ILE FORGOTTEN WORLD - HOLW WATER TEMPLE GIBI DUNGEONLARI\nSCRIPTE EKLENEN 2 KOMUT SAYESINDE OTO YAPTIRABILIRSINIZ.\n1. KOMUT:\n "AtackArea,x,y"\n # x = RANGE (YAZILMAZSA VARSAYILAN = 75)\n # y = YENIDEN CANAVAR TANIMLAMA SURESI (SANIYE)\n2. KOMUT:\n "GoDimensional"\n      VEYA\n "GoDimensional,Dimension Hole (Flame Mountain-3 stars)" \n            = DIMENSION ACIP FGW GIRMESI ICIN.')
 log('Plugin: '+pName+' v'+pVersion+' BASARIYLA YUKLENDI')
