@@ -67,4 +67,4 @@ def btnUltimateItemManager_clicked():
 def btnUltimateTranslator_clicked():
 	QtBind.clear(gui,lstInfo)
 	QtBind.append(gui,lstInfo,'UltimateTranslator:\n    # BU PLUGIN ILE OYUN CHATINDAN GELEN HERHANGI BIR DILDEDKI YAZIYI\nISTEDIGINIZ BASKA BIR DILE CEVIREBILIR, TURKCE GONDERDIGINIZ YAZIYI KARSI\nTARAFA OTOMATIK SECTIGINIZ DILE CEVIREREK GONDERIR.')
-log('Plugin: '+pName+' '+pVersion+' BASARIYLA YUKLENDI')
+log('Plugin: '+pName+' v'+pVersion+' BASARIYLA YUKLENDI')
