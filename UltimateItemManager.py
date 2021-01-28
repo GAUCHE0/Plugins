@@ -8,7 +8,7 @@ import struct
 import time
 import subprocess
 
-pVersion = 'v0.0.1'
+pVersion = '0.0.1'
 pName = 'UltimateItemManager'
 pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateItemManager.py'
 
@@ -525,7 +525,7 @@ def countItems(countIn):
     QtBind.setText(gui_, qspirit, str(spirit))
     QtBind.setText(gui_, qdodging2, str(dodging2))
 
-log('Plugin: '+pName+' '+pVersion+' BASARIYLA YUKLENDI')
+log('Plugin: '+pName+' v'+pVersion+' BASARIYLA YUKLENDI')
 
 #CONFIG DOSYALARINI KONTROL ET
 if os.path.exists(getPath()):
