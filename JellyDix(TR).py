@@ -12,7 +12,7 @@ import re
 
 pName = 'JellyDix(TR)'
 pVersion = '0.0.1'
-pUrl = ''
+pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/JellyDix(TR).py'
 
 # ______________________________ KURULUM ______________________________ #
 
