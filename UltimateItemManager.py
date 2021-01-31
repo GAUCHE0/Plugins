@@ -8,7 +8,7 @@ import struct
 import time
 import subprocess
 
-pVersion = '0.0.1'
+pVersion = '0.0.2'
 pName = 'UltimateItemManager'
 pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateItemManager.py'
 
@@ -127,7 +127,7 @@ def getConfig(name):
         name = pName;
     return getPath()+name+".json"
 def loadDefaultConfig():
-    # DATAYI TEMÝZLE
+    # DATAYI TEMİZLE
     QtBind.setText(gui_,tbxProfil,"")
     QtBind.setText(gui_,tbxplayer,"")
     QtBind.setText(gui_,tbxparola,"")
@@ -201,10 +201,6 @@ def handle_chat(t,player,msg):
             sStone()
         elif msg == "gStone":
             gStone()
-        else:
-            phBotChat.Private(player, "ELIXIR-COIN-STONE KODLARININ BASINA s, i, g KOYARAK YOLLAYIN.ORN: sElixir")
-            sleep(1.0)
-            phBotChat.Private(player,"s : STORAGE  i : ENVANTER , g : GUILD STORAGE")
     else:
         if msg == (str(QtBind.text(gui_, tbxparola))):
             player = str(QtBind.text(gui_, tbxplayer))
