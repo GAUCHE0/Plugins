@@ -9,7 +9,7 @@ import json
 import os
 
 pName = 'UltimateController'
-pVersion = '0.0.2'
+pVersion = '0.0.3'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 # ______________________________ KURULUM______________________________ #
 # KURESELLER
@@ -337,10 +337,10 @@ def handle_chat(t,player,msg):
 	# KOMUTU VEREN LIDER LISTESINDE YA DA DC UZERINDE MI
 	if player and lstLeaders_exist(player) or t == 100:
 		# MESAJ KOMUTLARI
-		if msg == "START":
+		if msg == "BASLAT":
 			start_bot()
 			log("Plugin: BOT BASLATILDI")
-		elif msg == "STOP":
+		elif msg == "DURDUR":
 			stop_bot()
 			log("Plugin: BOT DURDURULDU.")
 		elif msg.startswith("TRACE"):
@@ -356,12 +356,12 @@ def handle_chat(t,player,msg):
 		elif msg == "NOTRACE":
 			stop_trace()
 			log("Plugin: TRACE DURDURULDU.")
-		elif msg.startswith("SETAREA"):
+		elif msg.startswith("KUR"):
 			# BOSLUK SILMEK ICIN
 			msg = msg.rstrip()
 			# API DATASI
 			compatibility = tuple(map(int, (get_version().split(".")))) < (25,0,7)
-			if msg == "SETAREA":
+			if msg == "KUR":
 				p = get_position()
 				if compatibility:
 					set_training_position(p['region'], p['x'], p['y'])
@@ -399,7 +399,7 @@ def handle_chat(t,player,msg):
 					# PY HATASI ALMAMASI ICIN RADIUS LIMIT BELIRLEME
 					radius = (radius if radius > 0 else radius*-1)
 					set_training_radius(radius)
-					log("Plugin: TRADIUS DEGISTIRILDI. "+str(radius)+" m.")
+					log("Plugin: RADIUS DEGISTIRILDI. "+str(radius)+" m.")
 				except:
 					log("Plugin: YANLIS RADIUS DEGERI !")
 		elif msg.startswith('SETSCRIPT'):
