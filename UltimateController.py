@@ -1,6 +1,5 @@
 from phBot import *
 from threading import Timer
-from time import localtime, strftime
 import phBotChat
 import QtBind
 import struct
@@ -9,7 +8,7 @@ import json
 import os
 
 pName = 'UltimateController'
-pVersion = '0.0.3'
+pVersion = '0.0.4'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 # ______________________________ KURULUM______________________________ #
 # KURESELLER
@@ -42,15 +41,13 @@ def isJoined():
 	return inGame
 # VARSAYILAN CONFIG AYARI YUKLEME
 def loadDefaultConfig():
-	# DATAYI TEMIZLEME
 	QtBind.clear(gui,lstLeaders)
 	QtBind.setChecked(gui,cbxEnabled,False)
 	QtBind.setChecked(gui,cbxDefensive,False)
-	# ONCEKI KAYITLI TUM CONFIGLERI YUKLEME
+# ONCEKI KAYITLI TUM CONFIGLERI YUKLEME
 def loadConfigs():
 	loadDefaultConfig()
 	if isJoined():
-		# YUKLENEBILECEK CONFIG VAR MI KONTROL ET
 		if os.path.exists(getConfig()):
 			data = {}
 			with open(getConfig(),"r") as f:
@@ -66,7 +63,7 @@ def ListContains(text,lst):
 	for i in range(len(lst)):
 		if lst[i].lower() == text:
 			return True
-	return False	
+	return False
 # LISTEYE LIDER EKLEME
 def btnAddLeader_clicked():
 	if inGame:
@@ -119,22 +116,6 @@ def getnickname(UniqueID):
 			if player['player_id'] == UniqueID:
 				return player['name']
 	return ""
-	players = get_guild()
-	if UniqueID == inGame['player_id']:
-		return inGame['name']
-	if players:
-		for key, player in players.items():
-			if player['player_id'] == UniqueID:
-				return player['name']
-	return ""
-	players = get_guild_union()
-	if UniqueID == inGame['player_id']:
-		return inGame['name']
-	if players:
-		for key, player in players.items():
-			if player['player_id'] == UniqueID:
-				return player['name']
-	return ""
 # TARGET SECMEYI ENJEKTE ETMEK
 def Inject_SelectTarget(targetUID):
 	packet = struct.pack('<I',targetUID)
@@ -159,7 +140,7 @@ def inject_teleport(source,destination):
 				inject_joymax(0x7045, struct.pack('<I', key), False)
 				# 2 SANIYE GECIKMELI TELEPORT BASLATICI
 				Timer(2.0, inject_joymax, (0x705A,struct.pack('<IBI', key, 2, t[1]),False)).start()
-				Timer(2.0, log, ("Plugin: Teleporting to ["+destination+"]")).start()
+				Timer(2.0, log, ("Plugin: TP : ["+destination+"]")).start()
 				return
 		log('Plugin: NPC BULUNAMADI. YANLIS NPC ADI VEYA SERVER ADI.')
 	else:
@@ -171,7 +152,7 @@ def handleChatCommand(msg):
 	# CESIT BULUNAMADIGINDA
 	if len(args) != 2 or not args[0] or not args[1]:
 		return
-    # UYUMLU MESAJ BULUNDUGUNDA
+	# UYUMLU MESAJ BULUNDUGUNDA
 	t = args[0].lower()
 	if t == 'private' or t == 'note':
 		# UYUMLU MESAJ BULUNAMADIGINDA
@@ -180,6 +161,7 @@ def handleChatCommand(msg):
 			return
 		args.pop(1)
 		args += argsExtra
+	# MESAJ CESIDINI KONTROL ET
 	sent = False
 	if t == "all":
 		sent = phBotChat.All(args[1])
@@ -201,13 +183,14 @@ def handleChatCommand(msg):
 		log('Plugin: MESAJ "'+t+'" GONDERILDI.')
 # MAX RADIUSTA LOKASYON BELIRLEME
 def randomMovement(radiusMax=10):
-# KARISIK POZIYON BELIRLEME
+	# KARISIK POZIYON BELIRLEME
+	pX = random.uniform(-radiusMax,radiusMax)
 	pY = random.uniform(-radiusMax,radiusMax)
 	# SECILEN POZISYONU BELIRLEME
 	p = get_position()
 	pX = pX + p["x"]
 	pY = pY + p["y"]
-    # YENI POZISYONU GITME
+	# YENI POZISYONU GITME
 	move_to(pX,pY,p["z"])
 	log("Plugin: POZISYON DEGISTIRILDI. (X:%.1f,Y:%.1f)"%(pX,pY))
 # MESAFE KULLANARAK TAKIP BASLATMAK
@@ -242,6 +225,7 @@ def GetDistance(ax,ay,bx,by):
 def stop_follow():
 	global followActivated,followPlayer,followDistance
 	result = followActivated
+	# stop
 	followActivated = False
 	followPlayer = ""
 	followDistance = 0
@@ -257,11 +241,10 @@ def MountHorse():
 				packet += struct.pack('H',4588 + (1 if sn.endswith('_SCROLL') else 0)) # Silk scroll
 				inject_joymax(0x704C,packet,True)
 				return True
-	log('Plugin: ENVANTERDE AT BULUNAMADI.')
+	log('Plugin:  ENVANTERDE AT BULUNAMADI.')
 	return False
 # SECILMIS CESITTEKI PETI ACTIRMAK
 def MountPet(petType):
-	# ENVANTERDE PICK PET VARSA
 	if petType == 'pick':
 		return False
 	elif petType == 'horse':
@@ -302,6 +285,112 @@ def GetNPCUniqueID(name):
 			if name == NPCName:
 				return UniqueID
 	return 0
+# ISIM VEYA SERVERDA ITEMI BULMAK
+def GetItemByExpression(_lambda,start=0,end=0):
+	inventory = get_inventory()
+	items = inventory['items']
+	if end == 0:
+		end = inventory['size']
+	# check items between intervals
+	for slot, item in enumerate(items):
+		if start <= slot and slot <= end:
+			if item:
+				# Search by lambda
+				if _lambda(item['name'],item['servername']):
+					# Save slot location
+					item['slot'] = slot
+					return item
+	return None
+# ENVANTER BOŞ SLOT VARSA
+def GetEmptySlot():
+	items = get_inventory()['items']
+	for slot, item in enumerate(items):
+		if slot >= 13:
+			if not item:
+				return slot
+	return -1
+# ENVANTER HAREKET ENJEKSIYONU
+def Inject_InventoryMovement(movementType,slotInitial,slotFinal,logItemName,quantity=0):
+	p = struct.pack('<B',movementType)
+	p += struct.pack('<B',slotInitial)
+	p += struct.pack('<B',slotFinal)
+	p += struct.pack('<H',quantity)
+	# CLIENT_INVENTORY_ITEM_MOVEMENT
+	inject_joymax(0x7034,p,False)
+# ITEM GIYMEYI DENE
+def EquipItem(item):
+	itemData = get_item(item['model'])
+	if itemData['tid1'] != 1:
+		log('Plugin: '+item['name']+' cannot be equiped!')
+		return
+	t = itemData['tid2']
+	if t == 1 or t == 2 or t == 3 or t == 9 or t == 10 or t == 11:
+		t = itemData['tid3']
+		# head
+		if t == 1:
+			Inject_InventoryMovement(0,item['slot'],0,item['name'])
+		# shoulders
+		elif t == 2:
+			Inject_InventoryMovement(0,item['slot'],2,item['name'])
+		# chest
+		elif t == 3:
+			Inject_InventoryMovement(0,item['slot'],1,item['name'])
+		# pants
+		elif t == 4:
+			Inject_InventoryMovement(0,item['slot'],4,item['name'])
+		# gloves
+		elif t == 5:
+			Inject_InventoryMovement(0,item['slot'],3,item['name'])
+		# boots
+		elif t == 6:
+			Inject_InventoryMovement(0,item['slot'],5,item['name'])
+	# shields
+	elif t == 4:
+		Inject_InventoryMovement(0,item['slot'],7,item['name'])
+	# accesories ch/eu
+	elif t == 5 or t == 12:
+		t = itemData['tid3']
+		# earring
+		if t == 1:
+			Inject_InventoryMovement(0,item['slot'],9,item['name'])
+		# necklace
+		elif t == 2:
+			Inject_InventoryMovement(0,item['slot'],10,item['name'])
+		# ring
+		elif t == 3:
+			if not GetItemByExpression(lambda s,n: True,11):
+				Inject_InventoryMovement(0,item['slot'],12,item['name'])
+			else:
+				Inject_InventoryMovement(0,item['slot'],11,item['name'])
+	# weapon ch/eu
+	elif t == 6:
+		Inject_InventoryMovement(0,item['slot'],6,item['name'])
+	# job
+	elif t == 7:
+		Inject_InventoryMovement(0,item['slot'],8,item['name'])
+	# avatar
+	elif t == 13:
+		t = itemData['tid3']
+		# hat
+		if t == 1:
+			Inject_InventoryMovement(36,item['slot'],0,item['name'])
+		# dress
+		elif t == 2:
+			Inject_InventoryMovement(36,item['slot'],1,item['name'])
+		# accesory
+		elif t == 3:
+			Inject_InventoryMovement(36,item['slot'],2,item['name'])
+		# flag
+		elif t == 4:
+			Inject_InventoryMovement(36,item['slot'],3,item['name'])
+	# devil spirit
+	elif t == 14:
+		Inject_InventoryMovement(36,item['slot'],4,item['name'])
+# ITEM CIKARTMAYI DENE
+def UnequipItem(item):
+	slot = GetEmptySlot()
+	if slot != -1:
+		Inject_InventoryMovement(0,item['slot'],slot,item['name'])
 # ______________________________ ETKINLIKLER ______________________________ #
 # PLUGIN BAGLANTISI
 def connected():
@@ -356,12 +445,12 @@ def handle_chat(t,player,msg):
 		elif msg == "NOTRACE":
 			stop_trace()
 			log("Plugin: TRACE DURDURULDU.")
-		elif msg.startswith("KUR"):
+		elif msg.startswith("KORKUR"):
 			# BOSLUK SILMEK ICIN
 			msg = msg.rstrip()
 			# API DATASI
 			compatibility = tuple(map(int, (get_version().split(".")))) < (25,0,7)
-			if msg == "KUR":
+			if msg == "KORKUR":
 				p = get_position()
 				if compatibility:
 					set_training_position(p['region'], p['x'], p['y'])
@@ -371,11 +460,11 @@ def handle_chat(t,player,msg):
 			else:
 				try:
 					# ARGUMENLERI KONTROL ET
-					p = msg[7:].split()
+					p = msg[6:].split()
 					x = float(p[0])
 					y = float(p[1])
 					# SECILMEMISSE OTOMATIK KONTROL ET
-					region = int(p[2]) if len(p) >= 3 else 0
+					region = int(p[2]) if len(p) >= 5 else 0
 					if compatibility:
 						set_training_position(region,x,y)
 					else:
@@ -413,6 +502,15 @@ def handle_chat(t,player,msg):
 				# SCRIPT DEGISTIRMEK
 				set_training_script(msg[9:])
 				log('Plugin: SCRIPT YOLU DEGISTIRILDI.')
+		elif msg.startswith('SETAREA '):
+			# BOSLUK SILMEK ICIN
+			msg = msg[8:]
+			if msg:
+				# KASMA ALANI DEGISTIRMEYI DENE
+				if set_training_script(msg):
+					log('Plugin: KASILMA ALANI DEGISTIRILDI : ['+msg+']')
+				else:
+					log('Plugin: KASILMA ALANI ['+msg+'] LISTEDE BULUNAMADI.')
 		elif msg == "SIT":
 			log("Plugin: OTUR/KALK")
 			inject_joymax(0x704F,b'\x04',False)
@@ -465,11 +563,7 @@ def handle_chat(t,player,msg):
 				Timer(random.uniform(0.5,2),use_return_scroll).start()
 		elif msg.startswith("TP"):
 			# DEVAMI YOKSA RETURN ATAR
-			msg = msg[2:]
-			if not msg:
-				return
-			# BOSLUK SILMEK ICIN
-			msg = msg[1:]
+			msg = msg[3:]
 			if not msg:
 				return
 			# FARKLI CHARLARDAN KOMUT ALABILMESI ICIN
@@ -507,7 +601,9 @@ def handle_chat(t,player,msg):
 				randomMovement()
 			else:
 				try:
+					# split and parse movement radius
 					radius = int(float(msg[6:].split()[0]))
+					# to positive
 					radius = (radius if radius > 0 else radius*-1)
 					randomMovement(radius)
 				except:
@@ -525,7 +621,7 @@ def handle_chat(t,player,msg):
 					if len(msg) >= 2:
 						distance = float(msg[1])
 				except:
-					log("Plugin:TAKIP MESAFESI YANLIS !")
+					log("Plugin: TAKIP MESAFESI YANLIS !")
 					return
 			# TAKIP BASLATMA
 			if start_follow(charName,distance):
@@ -553,7 +649,7 @@ def handle_chat(t,player,msg):
 					pet = msg[0]
 			# PET ACMAYI DENE
 			if MountPet(pet):
-				log("Plugin: PET ACILIYOR. ["+pet+"]")
+				log("Plugin: PET ACILIYOR.  ["+pet+"]")
 		elif msg.startswith("DISMOUNT"):
 			# VARSAYILAN DEGERLER
 			pet = "horse"
@@ -577,6 +673,38 @@ def handle_chat(t,player,msg):
 				if npcUID > 0:
 					log("Plugin: YENIDEN DOGMA NOKTASI AYARLANIYOR : \""+msg.title()+"\"...")
 					inject_joymax(0x7059, struct.pack('I',npcUID), False)
+		elif msg.startswith("GIY "):
+			msg = msg[6:]
+			if msg:
+				item = GetItemByExpression(lambda n,s: msg in n or msg == s,13)
+				if item:
+					EquipItem(item)
+				log('Plugin: ITEM GIYILIYOR..')
+		elif msg.startswith("CIKART "):
+			msg = msg[8:]
+			if msg:
+				item = GetItemByExpression(lambda n,s: msg in n or msg == s,0,12)
+				if item:
+					UnequipItem(item)
+				log('Plugin: ITEM CIKARILIYOR..')
+		elif msg.startswith("REVERSE "):
+			msg = msg[8:]
+			if msg:
+				msg = msg.split(' ',1)
+				if msg[0] == 'RETURN':
+					if reverse_return(0,''):
+						log('Plugin: SON RETURN KULLANIM NOKTASINA REVERSE KULLANILIYOR')
+				elif msg[0] == 'OLUM':
+					if reverse_return(1,''):
+						log('Plugin: SON OLUM NOKTASINA REVERSE KULLANILIYOR')
+				elif msg[0] == 'PLAYER':
+					if len(msg) >= 2:
+						if reverse_return(2,msg[1]):
+							log('Plugin: BU KISIYE REVERSE KULLANILIYOR : "'+msg[1]+'"')
+				elif msg[0] == 'ALAN':
+					if len(msg) >= 2:
+						if reverse_return(3,msg[1]):
+							log('Plugin: BU ALANA REVERSE ATILIYOR : "'+msg[1]+'" ')
 		#GAUCHE EGLENCE KOMUTLARI
 		if msg == "WALK":
 			log("Plugin: YURUME MODU AKTIF")
@@ -686,7 +814,7 @@ def handle_chat(t,player,msg):
 			inject_joymax( 0x704C,b'\x2B\xED\x0E',False)
 		elif msg == "RES":
 			log("Plugin: RES SCROLL KULLANILDI")
-			inject_joymax( 0x704C,b'\x28\xED\x36',False)		
+			inject_joymax( 0x704C,b'\x28\xED\x36',False)	
 # 500MS DE BIR KONTROL ETTIRME
 def event_loop():
 	if inGame and followActivated:
@@ -711,6 +839,7 @@ def event_loop():
 			# NEGATIF NUMARALARI GORMEZDEN GEL
 			log("TAKIPTE : "+followPlayer+"...")
 			move_to(player['x'],player['y'],0)
+
 # PLUGIN YUKLENIRSE
 log("Plugin: "+pName+" v"+pVersion+" BASARIYLA YUKLENDI.")
 if os.path.exists(getPath()):
