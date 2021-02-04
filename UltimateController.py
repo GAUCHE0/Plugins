@@ -6,9 +6,10 @@ import struct
 import random
 import json
 import os
+from time import sleep
 
 pName = 'UltimateController'
-pVersion = '0.0.4'
+pVersion = '0.0.5'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 # ______________________________ KURULUM______________________________ #
 # KURESELLER
@@ -398,7 +399,7 @@ def connected():
 	inGame = None
 # CHAR OYUNA BAGLANDIGINDA
 def joined_game():
-	loadConfigs()
+		loadConfigs()
 #TARGET TEMEL FONKSIYONLAR
 def handle_joymax(opcode, data):
 	if opcode == 0xB070 and QtBind.isChecked(gui,cbxEnabled):
@@ -813,8 +814,15 @@ def handle_chat(t,player,msg):
 			log("Plugin: HP+2800 SCROLL KULLANILDI.")
 			inject_joymax( 0x704C,b'\x2B\xED\x0E',False)
 		elif msg == "RES":
-			log("Plugin: RES SCROLL KULLANILDI")
+			log("Plugin: RES SCROLL KULLANILDI.")
 			inject_joymax( 0x704C,b'\x28\xED\x36',False)	
+		elif msg == "ZERKPOT":
+			log("Plugin: ZERK POTU ACILDI VE KULLANILDI.")
+			inject_joymax( 0x704C,b'\x26\xEC\x76',False)
+			Timer(2.0, inject_joymax, (0x715F,b'\x8B\x5D\x00\x00\x81\x5D\x00\x00',False)).start()
+		elif msg == "PET":
+			log("Plugin: PET ACILDI.")
+			inject_joymax( 0x704C,b'\x22\xCD\x08',False)
 # 500MS DE BIR KONTROL ETTIRME
 def event_loop():
 	if inGame and followActivated:
@@ -839,7 +847,6 @@ def event_loop():
 			# NEGATIF NUMARALARI GORMEZDEN GEL
 			log("TAKIPTE : "+followPlayer+"...")
 			move_to(player['x'],player['y'],0)
-
 # PLUGIN YUKLENIRSE
 log("Plugin: "+pName+" v"+pVersion+" BASARIYLA YUKLENDI.")
 if os.path.exists(getPath()):
