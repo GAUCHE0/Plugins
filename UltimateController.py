@@ -9,7 +9,7 @@ import os
 from time import sleep
 
 pName = 'UltimateController'
-pVersion = '0.0.5'
+pVersion = '0.0.6'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 # ______________________________ KURULUM______________________________ #
 # KURESELLER
@@ -465,7 +465,7 @@ def handle_chat(t,player,msg):
 					x = float(p[0])
 					y = float(p[1])
 					# SECILMEMISSE OTOMATIK KONTROL ET
-					region = int(p[2]) if len(p) >= 5 else 0
+					region = int(p[2]) if len(p) >= 3 else 0
 					if compatibility:
 						set_training_position(region,x,y)
 					else:
