@@ -9,7 +9,7 @@ import os
 from time import sleep
 
 pName = 'UltimateController'
-pVersion = '0.0.6'
+pVersion = '0.0.7'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 # ______________________________ KURULUM______________________________ #
 # KURESELLER
@@ -755,7 +755,43 @@ def handle_chat(t,player,msg):
 			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x9C\x00\x00\x00',False)
 		elif msg == "H34":
 			log("Plugin: HOTAN GATE3>GATE4")
-			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x9C\x00\x00\x00',False)
+			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x9C\x00\x00\x00',False)		
+		elif msg == "HC11":
+			log("Plugin: HOTAN CIKIS GATE1>GATE1")
+			inject_joymax( 0x705A,b'\x14\x00\x00\x00\x02\x96\x00\x00\x00',False)
+		elif msg == "HC12":
+			log("Plugin: HOTAN CIKIS GATE1>GATE2")
+			inject_joymax( 0x705A,b'\x14\x00\x00\x00\x02\x97\x00\x00\x00',False)
+		elif msg == "HC13":
+			log("Plugin: HOTAN CIKIS GATE1>GATE3")
+			inject_joymax( 0x705A,b'\x14\x00\x00\x00\x02\x98\x00\x00\x00',False)
+		elif msg == "HC21":
+			log("Plugin: HOTAN CIKIS GATE2>GATE1")
+			inject_joymax( 0x705A,b'\15\x00\x00\x00\x02\x96\x00\x00\x00',False)
+		elif msg == "HC22":
+			log("Plugin: HOTAN CIKIS GATE2>GATE2")
+			inject_joymax( 0x705A,b'\15\x00\x00\x00\x02\x97\x00\x00\x00',False)
+		elif msg == "HC23":
+			log("Plugin: HOTAN CIKIS GATE2>GATE3")
+			inject_joymax( 0x705A,b'\15\x00\x00\x00\x02\x98\x00\x00\x00',False)
+		elif msg == "HC31":
+			log("Plugin: HOTAN CIKIS GATE3>GATE1")
+			inject_joymax( 0x705A,b'\x16\x00\x00\x00\x02\x96\x00\x00\x00',False)
+		elif msg == "HC32":
+			log("Plugin: HOTAN CIKIS GATE3>GATE2")
+			inject_joymax( 0x705A,b'\x16\x00\x00\x00\x02\x97\x00\x00\x00',False)
+		elif msg == "HC33":
+			log("Plugin: HOTAN CIKIS GATE3>GATE3")
+			inject_joymax( 0x705A,b'\x16\x00\x00\x00\x02\x98\x00\x00\x00',False)
+		elif msg == "HC41":
+			log("Plugin: HOTAN CIKIS GATE4>GATE1")
+			inject_joymax( 0x705A,b'\x17\x00\x00\x00\x02\x96\x00\x00\x00',False)
+		elif msg == "HC42":
+			log("Plugin: HOTAN CIKIS GATE4>GATE2")
+			inject_joymax( 0x705A,b'\x17\x00\x00\x00\x02\x97\x00\x00\x00',False)
+		elif msg == "HC43":
+			log("Plugin: HOTAN CIKIS GATE4>GATE3")
+			inject_joymax( 0x705A,b'\x17\x00\x00\x00\x02\x98\x00\x00\x00',False)	
 	# GAUCHE JANGAN FORTRESS TELEPORTLARI
 		elif msg == "J11":
 			log("Plugin: JANGAN GATE1>GATE1")
