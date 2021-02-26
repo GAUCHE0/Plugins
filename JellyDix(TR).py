@@ -11,7 +11,7 @@ import os
 import re
 
 pName = 'JellyDix(TR)'
-pVersion = '0.0.1'
+pVersion = '0.0.2'
 pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/JellyDix(TR).py'
 
 # ______________________________ KURULUM ______________________________ #
@@ -1153,6 +1153,10 @@ def on_discord_message(msg,channel_id):
 				Notify(channel_id,'|`'+character_data['name']+'`| - GUILD UYELERIN `'+character_data['guild']+'` are :\n'+getGuildTextList(guild))
 			else:
 				Notify(channel_id,'|`'+character_data['name']+'`| - GUILDDE DEGILSIN!')
+		elif msgLower == 'exp':
+			data = get_character_data()
+			percentExp = data['current_exp'] * 100 / data['max_exp'] 
+			Notify(channel_id,'|`'+character_data['name']+'`| - MEVCUT EXP %.2f' % percentExp)
 
 # PLUGIN YUKLENDI
 log('Plugin: '+pName+' v'+pVersion+' BASARIYLA YUKLENDI')
