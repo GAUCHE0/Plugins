@@ -6,7 +6,7 @@ import json
 import os
 
 pName = 'UltimateChat'
-pVersion = '0.0.4'
+pVersion = '0.0.5'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateChat.py"
 
 # ______________________________ KURULUM ______________________________ #
@@ -71,6 +71,7 @@ def loadDefaultConfig():
 	QtBind.setChecked(gui__,cbxEvtDrop_item,False)
 	QtBind.setChecked(gui__,cbxEvtDrop_rare,False)
 	QtBind.setText(gui__,tbxMsg,"")
+	QtBind.setChecked(gui__,cbxMsg,False)
 # KAYIT EDILEN CONFIGDEN DEVAM ET
 def loadConfigs():
 	loadDefaultConfig()
@@ -122,6 +123,8 @@ def loadConfigs():
 				QtBind.setChecked(gui__,cbxEvtDrop_rare,data["cbxEvtDrop_rare"])
 			if "MESAJ" in data:
 				QtBind.setText(gui__,tbxMsg,data["MESAJ"])
+			if "BASLAT" in data and data["BASLAT"]:
+				QtBind.setChecked(gui__,cbxMsg,data["BASLAT"])
 # CONFIG KAYIT ETME
 def saveConfigs():
 	# DATA ERISIMI VARSA KAYDET
@@ -149,6 +152,7 @@ def saveConfigs():
 		data["cbxEvtDrop_item"] = QtBind.isChecked(gui__,cbxEvtDrop_item)
 		data["cbxEvtDrop_rare"] = QtBind.isChecked(gui__,cbxEvtDrop_rare)
 		data["MESAJ"] = QtBind.text(gui__,tbxMsg)
+		data["BASLAT"] = QtBind.isChecked(gui__,cbxMsg)
 		with open(getConfig(),"w") as f:
 			f.write(json.dumps(data, indent=4, sort_keys=True))
 		log("Plugin: "+pName+" CONFIG KAYIT EDILDI.")
