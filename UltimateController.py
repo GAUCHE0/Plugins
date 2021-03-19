@@ -9,7 +9,7 @@ import os
 from time import sleep
 
 pName = 'UltimateController'
-pVersion = '0.0.7'
+pVersion = '0.0.8'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 # ______________________________ KURULUM______________________________ #
 # KURESELLER
@@ -424,6 +424,9 @@ def handle_joymax(opcode, data):
 	return True		
 # TUM MESAJ KANALLARINDA KONTROL EDILEBILIR DURUMDA
 def handle_chat(t,player,msg):
+	# UNION CHATI GORMESI ICIN GUILD ISMI SILME
+	if t == 11:
+		msg = msg.split(': ',1)[1]
 	# KOMUTU VEREN LIDER LISTESINDE YA DA DC UZERINDE MI
 	if player and lstLeaders_exist(player) or t == 100:
 		# MESAJ KOMUTLARI
@@ -725,7 +728,7 @@ def handle_chat(t,player,msg):
 			inject_joymax( 0x705A,b'\x02\x00\x00\x00\x02\x99\x00\x00\x00',False)
 		elif msg == "H21":
 			log("Plugin: HOTAN GATE2>GATE1")
-			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x99\x00\x00\x00',False)
+			inject_joymax, (0x705A,b'\x03\x00\x00\x00\x02\x99\x00\x00\x00',False)
 		elif msg == "H31":
 			log("Plugin: HOTAN GATE3>GATE1")
 			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x99\x00\x00\x00',False)
