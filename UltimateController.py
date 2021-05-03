@@ -9,7 +9,7 @@ import os
 from time import sleep
 
 pName = 'UltimateController'
-pVersion = '0.0.8'
+pVersion = '0.0.9'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 # ______________________________ KURULUM______________________________ #
 # KURESELLER
@@ -19,7 +19,7 @@ followPlayer = ''
 followDistance = 0
 # KULLANICI ARAYUZU 1.SAYFA
 gui = QtBind.init(__name__,pName)
-lblxControl01 = QtBind.createLabel(gui,'UltimateController:\n * GAUCHE TARAFINDAN DUZENLENMISTIR. \n * FEEDBACK SISTEMLI BIR YAZILIMDIR. \n * HATA VE ONERI BILDIRIMLERINIZI BANA ULASTIRABILIRSINIZ.',200,150)
+lblxControl01 = QtBind.createLabel(gui,'UltimateController:\n * GAUCHE TARAFINDAN DUZENLENMISTIR. \n * FEEDBACK SISTEMLI BIR YAZILIMDIR. \n * HATA VE ONERI BILDIRIMLERINIZI BANA ULASTIRABILIRSINIZ. \n\n * KOMUT DETAYLARI ICIN "UltimateINFO" PLUGININE GOZ ATABILIRSINIZ..',200,150)
 cbxEnabled = QtBind.createCheckBox(gui,'cbxTarget','TARGET MODUNU AKTIF ET',156,15)
 cbxDefensive = QtBind.createCheckBox(gui,'cbxDefensive','DEFANSIF MODU AKTIF ET',156,30)
 tbxLeaders = QtBind.createLineEdit(gui,"",311,11,100,20)
@@ -709,7 +709,7 @@ def handle_chat(t,player,msg):
 					if len(msg) >= 2:
 						if reverse_return(3,msg[1]):
 							log('Plugin: BU ALANA REVERSE ATILIYOR : "'+msg[1]+'" ')
-		#GAUCHE EGLENCE KOMUTLARI
+	# GAUCHE EGLENCE KOMUTLARI
 		if msg == "WALK":
 			log("Plugin: YURUME MODU AKTIF")
 			inject_joymax( 0x704F,b'\x02',False)
@@ -722,107 +722,6 @@ def handle_chat(t,player,msg):
 		elif msg == "MERHABA":
 			log("Plugin: MERHABA CINIM ")
 			inject_joymax( 0x3091,b'\x00',False)
-		#GAUCHE HOTAN FORTRESS KOMUTLARI
-		elif msg == "H11":
-			log("Plugin: HOTAN GATE1>GATE1")
-			inject_joymax( 0x705A,b'\x02\x00\x00\x00\x02\x99\x00\x00\x00',False)
-		elif msg == "H21":
-			log("Plugin: HOTAN GATE2>GATE1")
-			inject_joymax, (0x705A,b'\x03\x00\x00\x00\x02\x99\x00\x00\x00',False)
-		elif msg == "H31":
-			log("Plugin: HOTAN GATE3>GATE1")
-			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x99\x00\x00\x00',False)
-		elif msg == "H12":
-			log("Plugin: HOTAN GATE1>GATE2")
-			inject_joymax( 0x705A,b'\x02\x00\x00\x00\x02\x9A\x00\x00\x00',False)
-		elif msg == "H22":
-			log("Plugin: HOTAN GATE2>GATE2")
-			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x9A\x00\x00\x00',False)
-		elif msg == "H32":
-			log("Plugin: HOTAN GATE3>GATE2")
-			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x9A\x00\x00\x00',False)
-		elif msg == "H13":
-			log("Plugin: HOTAN GATE1>GATE3")
-			inject_joymax( 0x705A,b'\x02\x00\x00\x00\x02\x9B\x00\x00\x00',False)
-		elif msg == "H23":
-			log("Plugin: HOTAN GATE2>GATE3")
-			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x9B\x00\x00\x00',False)
-		elif msg == "H33":
-			log("Plugin: HOTAN GATE3>GATE3")
-			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x9B\x00\x00\x00',False)
-		elif msg == "H14":
-			log("Plugin: HOTAN GATE1>GATE4")
-			inject_joymax( 0x705A,b'\x02\x00\x00\x00\x02\x9C\x00\x00\x00',False)
-		elif msg == "H24":
-			log("Plugin: HOTAN GATE2>GATE4")
-			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x9C\x00\x00\x00',False)
-		elif msg == "H34":
-			log("Plugin: HOTAN GATE3>GATE4")
-			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x9C\x00\x00\x00',False)		
-		elif msg == "HC11":
-			log("Plugin: HOTAN CIKIS GATE1>GATE1")
-			inject_joymax( 0x705A,b'\x14\x00\x00\x00\x02\x96\x00\x00\x00',False)
-		elif msg == "HC12":
-			log("Plugin: HOTAN CIKIS GATE1>GATE2")
-			inject_joymax( 0x705A,b'\x14\x00\x00\x00\x02\x97\x00\x00\x00',False)
-		elif msg == "HC13":
-			log("Plugin: HOTAN CIKIS GATE1>GATE3")
-			inject_joymax( 0x705A,b'\x14\x00\x00\x00\x02\x98\x00\x00\x00',False)
-		elif msg == "HC21":
-			log("Plugin: HOTAN CIKIS GATE2>GATE1")
-			inject_joymax( 0x705A,b'\15\x00\x00\x00\x02\x96\x00\x00\x00',False)
-		elif msg == "HC22":
-			log("Plugin: HOTAN CIKIS GATE2>GATE2")
-			inject_joymax( 0x705A,b'\15\x00\x00\x00\x02\x97\x00\x00\x00',False)
-		elif msg == "HC23":
-			log("Plugin: HOTAN CIKIS GATE2>GATE3")
-			inject_joymax( 0x705A,b'\15\x00\x00\x00\x02\x98\x00\x00\x00',False)
-		elif msg == "HC31":
-			log("Plugin: HOTAN CIKIS GATE3>GATE1")
-			inject_joymax( 0x705A,b'\x16\x00\x00\x00\x02\x96\x00\x00\x00',False)
-		elif msg == "HC32":
-			log("Plugin: HOTAN CIKIS GATE3>GATE2")
-			inject_joymax( 0x705A,b'\x16\x00\x00\x00\x02\x97\x00\x00\x00',False)
-		elif msg == "HC33":
-			log("Plugin: HOTAN CIKIS GATE3>GATE3")
-			inject_joymax( 0x705A,b'\x16\x00\x00\x00\x02\x98\x00\x00\x00',False)
-		elif msg == "HC41":
-			log("Plugin: HOTAN CIKIS GATE4>GATE1")
-			inject_joymax( 0x705A,b'\x17\x00\x00\x00\x02\x96\x00\x00\x00',False)
-		elif msg == "HC42":
-			log("Plugin: HOTAN CIKIS GATE4>GATE2")
-			inject_joymax( 0x705A,b'\x17\x00\x00\x00\x02\x97\x00\x00\x00',False)
-		elif msg == "HC43":
-			log("Plugin: HOTAN CIKIS GATE4>GATE3")
-			inject_joymax( 0x705A,b'\x17\x00\x00\x00\x02\x98\x00\x00\x00',False)	
-	# GAUCHE JANGAN FORTRESS TELEPORTLARI
-		elif msg == "J11":
-			log("Plugin: JANGAN GATE1>GATE1")
-			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x31\x00\x00\x00',False)
-		elif msg == "J21":
-			log("Plugin: JANGAN GATE2>GATE1")
-			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x31\x00\x00\x00',False)
-		elif msg == "J31":
-			log("Plugin: JANGAN GATE3>GATE1")
-			inject_joymax( 0x705A,b'\x05\x00\x00\x00\x02\x31\x00\x00\x00',False)
-		elif msg == "J12":
-			log("Plugin: JANGAN GATE1>GATE2")
-			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x32\x00\x00\x00',False)
-		elif msg == "J22":
-			log("Plugin: JANGAN GATE2>GATE2")
-			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x32\x00\x00\x00',False)
-		elif msg == "J32":
-			log("Plugin: JANGAN GATE3>GATE2")
-			inject_joymax( 0x705A,b'\x05\x00\x00\x00\x02\x32\x00\x00\x00',False)
-		elif msg == "J13":
-			log("Plugin: JANGAN GATE1>GATE3")
-			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x33\x00\x00\x00',False)
-		elif msg == "J23":
-			log("Plugin: JANGAN GATE2>GATE3")
-			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x33\x00\x00\x00',False)
-		elif msg == "J33":
-			log("Plugin: JANGAN GATE3>GATE3")
-			inject_joymax( 0x705A,b'\x05\x00\x00\x00\x02\x33\x00\x00\x00',False)
 	# GAUCHE TARGET KODLARI
 		elif msg == "TARGET ON":
 			log("Plugin: TARGET AKTIF EDILDI.")
