@@ -11,11 +11,9 @@ import os
 import re
 
 pName = 'JellyDix(TR)'
-pVersion = '0.0.2'
+pVersion = '0.0.3'
 pUrl = 'https://raw.githubusercontent.com/GAUCHE0/Plugins/main/JellyDix(TR).py'
-
 # ______________________________ KURULUM ______________________________ #
-
 URL_HOST = "https://jellydix.ddns.net" # API server
 URL_REQUEST_TIMEOUT = 15 # SANIYE
 DISCORD_FETCH_DELAY = 5000 # MILI SANIYE
@@ -35,7 +33,7 @@ lstChannels = QtBind.createList(gui,6,46,156,90)
 btnAddChannel = QtBind.createButton(gui,'btnAddChannel_clicked',"   EKLE   ",86,25)
 btnRemChannel = QtBind.createButton(gui,'btnRemChannel_clicked',"     SIL     ",45,135)
 # DC SECENEKLERI
-QtBind.createLabel(gui,"TOKEN:",6,165)
+QtBind.createLabel(gui,"Token :",6,165)
 tbxToken = QtBind.createLineEdit(gui,"",43,163,119,19)
 cbxAddTimestamp = QtBind.createCheckBox(gui,'cbxDoNothing','PHBOT SAATI EKLE',6,185)
 cbxDiscord_interactions = QtBind.createCheckBox(gui,'cbxDoNothing','DC ETKILESIMLERINI KULLAN',6,205)
@@ -45,7 +43,7 @@ cbxDiscord_check_all = QtBind.createCheckBox(gui,'cbxDoNothing','ETKILESIMLERI K
 QtBind.createLineEdit(gui,"",169,10,1,262)
 # TETIKLEYICI
 QtBind.createLabel(gui,"BILDIRIM GONDERMEK ICIN DISCORD KANAL KODOUNU GIRIN..",175,10)
-btnSaveConfig = QtBind.createButton(gui,'saveConfigs',"    DEGISIKLIKLERI KAYDET     ",560,4)
+btnSaveConfig = QtBind.createButton(gui,'saveConfigs',"     DEGISIKLIKLERI KAYDET     ",550,4)
 # GUI HIZLI DUZENLEMESI ICIN KOORDINAT TANIMLAMASI
 _x = 180
 _y = 30
@@ -107,7 +105,7 @@ _y+=20
 QtBind.createLabel(gui,'SALDIRI GELDI',_x+_cmbxWidth+4,_y+3)
 cmbxEvtChar_attacked = QtBind.createCombobox(gui,_x,_y,_cmbxWidth,_Height)
 _y+=20
-QtBind.createLabel(gui,'CHAR OLDU ',_x+_cmbxWidth+4,_y+3)
+QtBind.createLabel(gui,'CHAR OLDU',_x+_cmbxWidth+4,_y+3)
 cmbxEvtChar_died = QtBind.createCombobox(gui,_x,_y,_cmbxWidth,_Height)
 _y+=20
 QtBind.createLabel(gui,'TRANSPORT OLDU',_x+_cmbxWidth+4,_y+3)
@@ -214,7 +212,7 @@ QtBind.createLabel(gui_,'ITEM (SOX) TOPLANDI',_x+_cmbxWidth+4,_y+3)
 cmbxEvtPick_rare = QtBind.createCombobox(gui_,_x,_y,_cmbxWidth,_Height)
 _y+=20
 QtBind.createLabel(gui_,'GIYILEBILIR ITEM\nTOPLANDI',_x+_cmbxWidth+4,_y+3)
-cmbxEvtPick_equip = QtBind.createCombobox(gui_,_x,_y+6,_cmbxWidth,_Height)
+cmbxEvtPick_equip = QtBind.createCombobox(gui_,_x,_y,_cmbxWidth,_Height)
 _y+=20
 #INFO
 lblinfo = QtBind.createLabel(gui_,"JellyDix (TR):\n * GAUCHE TARAFINDAN DUZENLENMISTIR. \n  * HATA VE ONERI BILDIRIMLERINIZI BANA ULASTIRABILIRSINIZ.\n   # DISCORD: |GAUCHE#8710| \n   # E-MAIL: |can.berk.cetin@hotmail.com.tr|",220,190)
@@ -229,16 +227,18 @@ def getConfig():
 	return getPath()+character_data['server'] + "_" + character_data['name'] + ".json"
 # VARSAYILAN CONFIG YUKLE
 def loadDefaultConfig():
+	# Clear data
 	QtBind.setText(gui,tbxChannels,"")
 	QtBind.clear(gui,lstChannels)
 	QtBind.setChecked(gui,cbxAddTimestamp,False)
 	QtBind.setChecked(gui,cbxDiscord_interactions,False)
-	QtBind.setText(gui,tbxDiscord_guild_id," DISCORD SUNUCU ID...")
+	QtBind.setText(gui,tbxDiscord_guild_id,"DISCORD SUNUCU ID...")
 	QtBind.setChecked(gui,cbxDiscord_check_all,False)
 	QtBind.setText(gui,tbxToken,'')
 	for name,cmbx in cmbxTriggers.items():
 		QtBind.clear(gui,cmbx)
 		QtBind.append(gui,cmbx,"")
+
 	QtBind.setChecked(gui,cbxEvtMessage_uniqueSpawn_filter,False)
 	QtBind.setText(gui,tbxEvtMessage_uniqueSpawn_filter,"ISIM FILITRELE")
 	QtBind.setChecked(gui,cbxEvtMessage_uniqueKilled_filter,False)
@@ -250,9 +250,8 @@ def loadDefaultConfig():
 	QtBind.setText(gui_,tbxEvtMessage_global_filter,"ISIM FILITRELE")
 	QtBind.setChecked(gui_,cbxEvtMessage_notice_filter,False)
 	QtBind.setText(gui_,tbxEvtMessage_notice_filter,"MESAJ FILITRELE")
-
 	QtBind.setChecked(gui_,cbxEvtPick_name_filter,False)
-	QtBind.setText(gui_,tbxEvtPick_name_filter,"ISIM FILITRELE")
+	QtBind.setText(gui_,tbxEvtPick_name_filter," Filter by name")
 	QtBind.setChecked(gui_,cbxEvtPick_servername_filter,False)
 	QtBind.setText(gui_,tbxEvtPick_servername_filter,"SV ISIM FILITRELE")
 # TUM CONFIGI KAYDET
@@ -264,7 +263,7 @@ def saveConfigs():
 		data["DiscordInteractions"] = QtBind.isChecked(gui,cbxDiscord_interactions)
 		data["DiscordInteractionGuildID"] = QtBind.text(gui,tbxDiscord_guild_id)
 		data["DiscordInteractionCheckAll"] = QtBind.isChecked(gui,cbxDiscord_check_all)
-		data["Token"] = QtBind.text(gui,tbxToken)
+		data["Token"] = QtBind.text(gui,tbxToken)	
 		triggers = {}
 		data["Triggers"] = triggers
 		for name,cmbx in cmbxTriggers.items():
@@ -474,7 +473,6 @@ def CreateInfo(t,data):
 	return info
 def Notify(channel_id,message,info=None,colour=None):
 	Timer(0.001,_Notify,(channel_id,message,info,colour)).start()
-
 # DC KANALINA BILDIRIM GONDERME
 def _Notify(channel_id,message,info,colour):
 	if not channel_id or not message:
@@ -529,11 +527,11 @@ def _Fetch(guild_id):
 					if resp['success']:
 						on_discord_fetch(resp['data'])
 					else:
-						log("Plugin: GETIRME BASARISIZ ["+resp['message']+"]")
+						log("Plugin: Fetch failed ["+resp['message']+"]")
 			except Exception as ex2:
-				log("Plugin: SUNUCUDAN OKUMA HATASI ["+str(ex2)+"]")
+				log("Plugin: Error reading response from server ["+str(ex2)+"]")
 	except Exception as ex:
-		log("Plugin: URL YUKLEME HATASI: ["+str(ex)+"] ")
+		log("Plugin: Error loading url ["+str(ex)+"] to Fetch")
 # CHAR OYUNDA MI KONTROL ET
 def isJoined():
 	global character_data
@@ -553,16 +551,14 @@ def getBattleArenaText(t):
 		return 'Job'
 	return 'Unknown['+str(t)+']'
 # KALE CEISTLERI
-def getFortressText(fw_id):
-	if fw_id == 1:
+def getFortressText(code):
+	if code == 1:
 		return "Jangan"
-	if fw_id == 3:
+	if code == 3:
 		return "Hotan"
-	if fw_id == 3:
-		return "Constantinople"
-	if fw_id == 6:
+	if code == 6:
 		return "Bandit"
-	return 'Fortress (#'+str(fw_id)+')'
+	return 'Fortress #'+str(code)
 # PT LISTESINI DC FORMATINDA LISTELE
 def getPartyTextList(party):
 	if not party:
@@ -634,6 +630,12 @@ def getSoXText(servername,level):
 		elif servername.endswith('SET_B'):
 			return '^Egy B'
 	return ''
+def getConsignmentTownText(code):
+	if code == 0:
+		return 'Jangan'
+	if code == 1:
+		return 'Donwhang'
+	return 'Town #'+str(code)
 # CHAT SISTEMI ICEREN TUM PLUGINLERI YUKLER
 def GetChatHandlers():
 	import importlib
@@ -644,11 +646,12 @@ def GetChatHandlers():
 		if path.is_file() and path.name.endswith(".py") and path.name != plugin_name:
 			try:
 				plugin = importlib.import_module(path.name[:-3])
+				# check if has chat handler
 				if hasattr(plugin,'handle_chat'):
 					handlers.append(getattr(plugin,'handle_chat'))
 					log('Plugin: DISCORD ETKILESIMCISI BURADAN YUKLENDI : '+path.name)
 			except Exception as ex:
-				log('Plugin: PLUGIN YUKLEME HATASI : '+path.name+' '+str(ex))
+				log('Plugin: PLUGIN YUKLEME HATASI : '+path.name+' plugin. '+str(ex))
 	return handlers
 def ParseItem(data,index):
 	rentID = struct.unpack_from('<I', data, index)[0]
@@ -727,7 +730,7 @@ def JellyDix(args):
 # CHAR OYUNA GIRDIGINDE CAGIR
 def joined_game():
 	loadConfigs()
-	Notify(QtBind.text(gui,cmbxEvtChar_joined),"|`"+character_data['name']+"`| - OYUNA GIRDI.")
+	Notify(QtBind.text(gui,cmbxEvtChar_joined),"|`"+character_data['name']+"`| - OYUNA GIRDI")
 # CHAR DC YEDIGINDE CAGIR
 def disconnected():
 	global isOnline
@@ -794,13 +797,13 @@ def handle_chat(t,player,msg):
 # OZEL ETKINLIKLERI OLDUGUNDA CAGIR
 def handle_event(t, data):
 	if t == 9:
-		Notify(QtBind.text(gui,cmbxEvtNear_gm),"|`"+character_data['name']+"`| - **GM** `"+data+"` YANINDA!",CreateInfo("position",get_position()))
+		Notify(QtBind.text(gui,cmbxEvtNear_gm),"|`"+character_data['name']+"`| - **GameMaster** `"+data+"` YANINDA!",CreateInfo("position",get_position()))
 	elif t == 0:
 		Notify(QtBind.text(gui,cmbxEvtNear_unique),"|`"+character_data['name']+"`| - **"+data+"** UNIQUE YANINDA!",CreateInfo("position",get_position()))
 	elif t == 1:
-		Notify(QtBind.text(gui,cmbxEvtNear_hunter),"|`"+character_data['name']+"`| - **HUNTER / TRADER** `"+data+"` YANINDA!",CreateInfo("position",get_position()))
+		Notify(QtBind.text(gui,cmbxEvtNear_hunter),"|`"+character_data['name']+"`| - **Hunter/Trader** `"+data+"` YANINDA!",CreateInfo("position",get_position()))
 	elif t == 2:
-		Notify(QtBind.text(gui,cmbxEvtNear_thief),"|`"+character_data['name']+"`| - **THIEF** `"+data+"` YANINDA!",CreateInfo("position",get_position()))
+		Notify(QtBind.text(gui,cmbxEvtNear_thief),"|`"+character_data['name']+"`| - **Thief** `"+data+"` YANINDA!",CreateInfo("position",get_position()))
 	elif t == 4:
 		Notify(QtBind.text(gui,cmbxEvtChar_attacked),"|`"+character_data['name']+"`| - `"+data+"` SANA SALDIRDI!",colour=0xFF5722)
 	elif t == 7:
@@ -815,7 +818,7 @@ def handle_event(t, data):
 			race = getRaceText(item['servername'])
 			genre = getGenreText(item['servername'])
 			sox = getSoXText(item['servername'],item['level'])
-			Notify(channel_id,"|`"+character_data['name']+"`| - **ITEM (SOX)** TOPLADIN! ***"+item['name']+(' '+race if race else '')+(' '+genre if genre else '')+(' '+sox if sox else '')+"***")
+			Notify(channel_id,"|`"+character_data['name']+"`| - **ITEM (SOX)** TOPLADIN!***"+item['name']+(' '+race if race else '')+(' '+genre if genre else '')+(' '+sox if sox else '')+"***")
 	elif t == 6:
 		channel_id = QtBind.text(gui_,cmbxEvtPick_equip)
 		if channel_id:
@@ -823,7 +826,7 @@ def handle_event(t, data):
 			race = getRaceText(item['servername'])
 			genre = getGenreText(item['servername'])
 			sox = getSoXText(item['servername'],item['level'])
-			Notify(channel_id,"|`"+character_data['name']+"`| - **ITEM (GIYILEBILIR)** TOPLADIN! ***"+item['name']+(' '+race if race else '')+(' '+genre if genre else '')+(' '+sox if sox else '')+"***")
+			Notify(channel_id,"|`"+character_data['name']+"`| - **ITEM (GIYILEBILIR)** TOPLADIN!***"+item['name']+(' '+race if race else '')+(' '+genre if genre else '')+(' '+sox if sox else '')+"***")
 	elif t == 8:
 		Notify(QtBind.text(gui,cmbxEvtBot_alchemy),"|`"+character_data['name']+"`| - *OTO SIMYA** TAMAMLANDI.")
 def handle_joymax(opcode, data):
@@ -858,31 +861,31 @@ def handle_joymax(opcode, data):
 					if searchName:
 						try:
 							if re.search(searchName,uniqueName):
-								Notify(channel_id,"**"+uniqueName+"** `"+killerName+"` TARAFINDAN OLDURULDU.",colour=0x9C27B0)
+								Notify(channel_id,"**"+uniqueName+"** TARAFINDAN OLDURULDU.`"+killerName+"`",colour=0x9C27B0)
 						except Exception as ex:
-							log("Plugin: Error at regex ["+str(ex)+"]")
+							log("Plugin: REGEX HATASI: ["+str(ex)+"]")
 				else:
-					Notify(channel_id,"**"+uniqueName+"** `"+killerName+"`TARAFINDAN OLDURULDU.",colour=0x9C27B0)
+					Notify(channel_id,"**"+uniqueName+"** TARAFINDAN OLDURULDU. `"+killerName+"`",colour=0x9C27B0)
 		elif updateType == 29:
-			eventType = data[2]
-			if eventType == 1:
+			jobType = data[2]
+			if jobType == 1:
 				channel_id = QtBind.text(gui,cmbxEvtMessage_consignmenthunter)
 				if channel_id:
 					progressType = data[3]
 					if progressType == 0:
-						Notify(channel_id,"[**Consignment**] HUNTER CONSIGNMENT 10 DAKIKA ICINDE BASLAYACAK")
+						Notify(channel_id,"[**Consignment**]HUNTER CONSIGNMENT 10 DAKIKA ICINDE BASLAYACAK")
 					elif progressType == 1:
-						Notify(channel_id,"[**Consignment**] HUNTER CONSIGNMENT BASLADI")
+						Notify(channel_id,"[**Consignment**] HUNTER CONSIGNMENT BASLADI ("+getConsignmentTownText(data[4])+")")
 					elif progressType == 2:
 						Notify(channel_id,"[**Consignment**] HUNTER CONSIGNMENT SONLANDI.")
-			elif eventType == 2:
+			elif jobType == 2:
 				channel_id = QtBind.text(gui,cmbxEvtMessage_consignmentthief)
 				if channel_id:
 					progressType = data[3]
 					if progressType == 0:
 						Notify(channel_id,"[**Consignment**] THIEF CONSIGNMENT 10 DAKIKA ICINDE BASLAYACAK")
 					elif progressType == 1:
-						Notify(channel_id,"[**Consignment**] THIEF CONSIGNMENT BASLADI")
+						Notify(channel_id,"[**Consignment**] THIEF CONSIGNMENT BASLADI ("+getConsignmentTownText(data[4])+")")
 					elif progressType == 2:
 						Notify(channel_id,"[**Consignment**] THIEF CONSIGNMENT SONLANDI.")
 	# SERVER_BA_NOTICE
@@ -895,7 +898,7 @@ def handle_joymax(opcode, data):
 			elif updateType == 13:
 				Notify(channel_id,"[**Battle Arena**] ("+getBattleArenaText(data[1])+") 5 DAKIKA ICINDE BASLAYACAK.")
 			elif updateType == 14:
-				Notify(channel_id,"[**Battle Arena**] ("+getBattleArenaText(data[1])+") 1 DAKIKA ICINDE BASLAYACAK.")
+				Notify(channel_id,"[**Battle Arena**] ("+getBattleArenaText(data[1])+") 1 DAKIKA ICINDE BASLAYACAK.e")
 			elif updateType == 3:
 				Notify(channel_id,"[**Battle Arena**] KATILIM SURESI SONLANDI")
 			elif updateType == 4:
@@ -931,18 +934,20 @@ def handle_joymax(opcode, data):
 		# vSRO filter
 		locale = get_locale()
 		if locale == 22:
-			channel_id = QtBind.text(gui_,cmbxEvtPick_item)
-			if channel_id:
-				# parse
-				updateType = data[1]
-				if updateType == 6: # Ground
-					notify_pickup(channel_id,struct.unpack_from("<I",data,7)[0])
-				elif updateType == 17: # Pet
-					notify_pickup(channel_id,struct.unpack_from("<I",data,11)[0])
-				elif updateType == 28: # Pet (Full/Quest)
-					slotInventory = data[6]
-					if slotInventory != 254:
+			# Check success
+			if data[0] == 1:
+				channel_id = QtBind.text(gui_,cmbxEvtPick_item)
+				if channel_id:
+					# parse
+					updateType = data[1]
+					if updateType == 6: # Ground
+						notify_pickup(channel_id,struct.unpack_from("<I",data,7)[0])
+					elif updateType == 17: # Pet
 						notify_pickup(channel_id,struct.unpack_from("<I",data,11)[0])
+					elif updateType == 28: # Pet (Full/Quest)
+						slotInventory = data[6]
+						if slotInventory != 254:
+							notify_pickup(channel_id,struct.unpack_from("<I",data,11)[0])
 	# SERVER_FW_NOTICE
 	elif opcode == 0x385F:
 		channel_id = QtBind.text(gui,cmbxEvtMessage_fortress)
@@ -962,7 +967,7 @@ def handle_joymax(opcode, data):
 				fortressID = struct.unpack_from("<I",data,1)[0]
 				guildNameLength = struct.unpack_from("<H",data,5)[0]
 				guildName = data[7:7+guildNameLength].decode('cp1252')
-				Notify(channel_id,"[**Fortress War**] "+getFortressText(fortressID)+" `"+guildName+"` TARAFINDAN ALINDI..")
+				Notify(channel_id,"[**Fortress War**] "+getFortressText(fortressID)+" `"+guildName+"`TARAFINDAN ALINDI..")
 			elif updateType == 9:
 				Notify(channel_id,"[**Fortress War**] 1 DAKIKA ICINDE BITECEK")
 			elif updateType == 6:
@@ -972,7 +977,7 @@ def handle_joymax(opcode, data):
 		party_data = get_party()
 		channel_id = QtBind.text(gui_,cmbxEvtParty_joined)
 		if channel_id:
-			Notify(channel_id,"|`"+character_data['name']+"`| PTYE KATILDIN\n"+getPartyTextList(party_data))
+			Notify(channel_id,"|`"+character_data['name']+"`|  PTYE KATILDIN\n"+getPartyTextList(party_data))
 	# SERVER_PARTY_UPDATE
 	elif opcode == 0x3864:
 		updateType = data[0]
@@ -1035,6 +1040,7 @@ def handle_joymax(opcode, data):
 				# Make easy log file for user
 				with open(getPath()+"error.log","a") as f:
 					f.write("["+str(ex)+"] Server: (Opcode) 0x" + '{:02X}'.format(opcode) + " (Data) "+ ("None" if not data else ' '.join('{:02X}'.format(x) for x in data))+'\r\n')
+				break
 	# GUILD_INFO_UPDATE
 	elif opcode == 0x38F5:
 		updateType = data[0]
@@ -1051,7 +1057,9 @@ def handle_joymax(opcode, data):
 					channel_id = QtBind.text(gui_,cmbxEvtGuild_memberLogin)
 					if channel_id:
 						member = get_guild()[memberID]
-						Notify(channel_id,"|`"+character_data['name']+"`|  GUILD UYESI `"+member['name']+"` OYUNA GIRDI")
+								# Avoid myself
+				if member['name'] != character_data['name']:
+							Notify(channel_id,"|`"+character_data['name']+"`|  GUILD UYESI `"+member['name']+"` OYUNA GIRDI")
 		elif updateType == 5: # general info
 			infoType = data[1]
 			if infoType == 16: # notice changed
@@ -1068,14 +1076,17 @@ def handle_joymax(opcode, data):
 # TOPLAMA ETKINLIKLERI OLDUGUNDA CAGIR
 def notify_pickup(channel_id,itemID):
 	item = get_item(itemID)
+	# Check filters
 	usefilterName = QtBind.isChecked(gui_,cbxEvtPick_name_filter)
 	usefilterServerName = QtBind.isChecked(gui_,cbxEvtPick_servername_filter)
 	if not usefilterName and not usefilterServerName:
+		# No filters activated
 		race = getRaceText(item['servername'])
 		genre = getGenreText(item['servername'])
 		sox = getSoXText(item['servername'],item['level'])
 		Notify(channel_id,"|`"+character_data['name']+"`| - **ITEM** TOPLANDI ***"+item['name']+(' '+race if race else '')+(' '+genre if genre else '')+(' '+sox if sox else '')+"***")
 		return
+	# check filter name
 	if usefilterName:
 		searchName = QtBind.text(gui_,tbxEvtPick_name_filter)
 		if searchName:
@@ -1089,6 +1100,7 @@ def notify_pickup(channel_id,itemID):
 					return
 			except Exception as ex:
 				log("Plugin: REGEX HATASI (ISIM) ["+str(ex)+"]")
+	# check filter servername
 	if usefilterServerName:
 		searchServername = QtBind.text(gui_,tbxEvtPick_servername_filter)
 		if searchServername:
@@ -1098,21 +1110,23 @@ def notify_pickup(channel_id,itemID):
 					race = getRaceText(item['servername'])
 					genre = getGenreText(item['servername'])
 					sox = getSoXText(item['servername'],item['level'])
-					Notify(channel_id,"|`"+character_data['name']+"`| - **ITEM (FILITRELI)** TOPLANDI ***"+item['name']+(' '+race if race else '')+(' '+genre if genre else '')+(' '+sox if sox else '')+"***")
+					Notify(channel_id,"|`"+character_data['name']+"`| -  **ITEM (FILITRELI)** TOPLANDI ***"+item['name']+(' '+race if race else '')+(' '+genre if genre else '')+(' '+sox if sox else '')+"***")
 					return
 			except Exception as ex:
 				log("Plugin: REGEX HATASI (SV ISMI) ["+str(ex)+"]")
-
 # 500MS DE BIR CAGIR
 def event_loop():
+	# Check if is in game at first
 	if character_data:
+		# generate fetch stuff
 		global discord_fetch_counter
 		discord_fetch_counter += 500
+		# Check if delay is longer to start fetching
 		if discord_fetch_counter >= DISCORD_FETCH_DELAY:
 			discord_fetch_counter = 0
 			if QtBind.isChecked(gui,cbxDiscord_interactions):
+				# Fetch messages from guild
 				Fetch(QtBind.text(gui,tbxDiscord_guild_id))
-
 # DC FETCH GELDIKCE CAGIR
 def on_discord_fetch(data):
 	if not data:
@@ -1122,7 +1136,6 @@ def on_discord_fetch(data):
 	messages = data['messages']
 	for message in messages:
 		created_at = time.strptime(str(message['created_at']), '%m/%d/%Y, %H:%M:%S')
-		created_at = time.mktime(created_at)
 		seconds_difference = int(fetched_at-created_at)
 		if seconds_difference <= 15:
 			content = message['content']
@@ -1144,7 +1157,7 @@ def on_discord_message(msg,channel_id):
 		elif msgLower == 'party':
 			party = get_party()
 			if party:
-				Notify(channel_id,'|`'+character_data['name']+'`| - PT UYELERIN : :\n'+getPartyTextList(party))
+				Notify(channel_id,'|`'+character_data['name']+'`| -  PT UYELERIN :\n'+getPartyTextList(party))
 			else:
 				Notify(channel_id,'|`'+character_data['name']+'`| - PT DE DEGILSIN!')
 		elif msgLower == 'guild':
@@ -1157,15 +1170,12 @@ def on_discord_message(msg,channel_id):
 			data = get_character_data()
 			percentExp = data['current_exp'] * 100 / data['max_exp'] 
 			Notify(channel_id,'|`'+character_data['name']+'`| - MEVCUT EXP %.2f' % percentExp)
-
 # PLUGIN YUKLENDI
 log('Plugin: '+pName+' v'+pVersion+' BASARIYLA YUKLENDI')
-if os.path.exists(getPath()):
-	loadConfigs()
-else:
+if not os.path.exists(getPath()):
 	# CONFIG DOSYASI OLUSTURULDU
 	os.makedirs(getPath())
 	log('Plugin: '+pName+' CONFIG KLASORU OLUSTURULDU.')
-
+loadConfigs()
 # DISCORD 
 discord_chat_handlers = GetChatHandlers()
