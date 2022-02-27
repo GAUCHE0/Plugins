@@ -9,7 +9,7 @@ import os
 from time import sleep
 
 pName = 'UltimateController'
-pVersion = '0.0.9'
+pVersion = '0.1.0'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 # ______________________________ KURULUM______________________________ #
 # KURESELLER
@@ -761,6 +761,43 @@ def handle_chat(t,player,msg):
 		elif msg == "PET":
 			log("Plugin: PET ACILDI.")
 			inject_joymax( 0x704C,b'\x22\xCD\x08',False)
+#Hotan Fortress Teleport Kodları
+		elif msg == "H11":
+			log("Plugin: HOTAN FORTRESS 1>1")
+			inject_joymax( 0x705A,b'\x02\x00\x00\x00\x02\x99\x00\x00\x00\x02\x00\x00\x00',False)
+		elif msg == "H12":
+			log("Plugin: HOTAN FORTRESS 1>2")
+			inject_joymax( 0x705A,b'\x02\x00\x00\x00\x02\x9A\x00\x00\x00\x02\x00\x00\x00',False)
+		elif msg == "H13":
+			log("Plugin: HOTAN FORTRESS 1>3")
+			inject_joymax( 0x705A,b'\x02\x00\x00\x00\x02\x9B\x00\x00\x00\x02\x00\x00\x00',False)
+		elif msg == "H14":
+			log("Plugin: HOTAN FORTRESS 1>4")
+			inject_joymax( 0x705A,b'\x02\x00\x00\x00\x02\x9C\x00\x00\x00\x02\x00\x00\x00',False)
+		elif msg == "H21":
+			log("Plugin: HOTAN FORTRESS 2>1")
+			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x99\x00\x00\x00\x03\x00\x00\x00',False)
+		elif msg == "H22":
+			log("Plugin: HOTAN FORTRESS 2>2")
+			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x9A\x00\x00\x00\x03\x00\x00\x00',False)
+		elif msg == "H23":
+			log("Plugin: HOTAN FORTRESS 2>3")
+			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x9B\x00\x00\x00\x03\x00\x00\x00',False)
+		elif msg == "H24":
+			log("Plugin: HOTAN FORTRESS 2>4")
+			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x9C\x00\x00\x00\x03\x00\x00\x00',False)
+		elif msg == "H11":
+			log("Plugin: HOTAN FORTRESS 3>1")
+			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x99\x00\x00\x00\x04\x00\x00\x00',False)
+		elif msg == "H12":
+			log("Plugin: HOTAN FORTRESS 3>2")
+			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x9A\x00\x00\x00\x04\x00\x00\x00',False)
+		elif msg == "H13":
+			log("Plugin: HOTAN FORTRESS 3>3")
+			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x9B\x00\x00\x00\x04\x00\x00\x00',False)
+		elif msg == "H14":
+			log("Plugin: HOTAN FORTRESS 3>4")
+			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x9C\x00\x00\x00\x04\x00\x00\x00',False)
 # 500MS DE BIR KONTROL ETTIRME
 def event_loop():
 	if inGame and followActivated:
