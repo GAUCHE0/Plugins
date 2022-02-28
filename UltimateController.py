@@ -9,7 +9,7 @@ import os
 from time import sleep
 
 pName = 'UltimateController'
-pVersion = '0.1.1'
+pVersion = '0.1.2'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 # ______________________________ KURULUM______________________________ #
 # KURESELLER
@@ -798,6 +798,34 @@ def handle_chat(t,player,msg):
 		elif msg == "H34":
 			log("Plugin: HOTAN FORTRESS 3>4")
 			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x9C\x00\x00\x00\x04\x00\x00\x00',False)
+#Jangan Fortress Teleport Kodları
+		elif msg == "J11":
+			log("Plugin: JANGAN FORTRESS 1>1")
+			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x31\x00\x00\x00\x03\x00\x00\x00',False)
+		elif msg == "J12":
+			log("Plugin: JANGAN FORTRESS 1>2")
+			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x32\x00\x00\x00\x03\x00\x00\x00',False)
+		elif msg == "J13":
+			log("Plugin: JANGAN FORTRESS 1>3")
+			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x33\x00\x00\x00\x03\x00\x00\x00',False)
+		elif msg == "J21":
+			log("Plugin: JANGAN FORTRESS 2>1")
+			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x31\x00\x00\x00\x04\x00\x00\x00',False)
+		elif msg == "J22":
+			log("Plugin: JANGAN FORTRESS 2>2")
+			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x32\x00\x00\x00\x04\x00\x00\x00',False)
+		elif msg == "J23":
+			log("Plugin: JANGAN FORTRESS 2>3")
+			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x33\x00\x00\x00\x04\x00\x00\x00',False)
+		elif msg == "J31":
+			log("Plugin: JANGAN FORTRESS 3>1")
+			inject_joymax( 0x705A,b'\x05\x00\x00\x00\x02\x31\x00\x00\x00\x05\x00\x00\x00',False)
+		elif msg == "J32":
+			log("Plugin: JANGAN FORTRESS 3>2")
+			inject_joymax( 0x705A,b'\x05\x00\x00\x00\x02\x32\x00\x00\x00\x05\x00\x00\x00',False)
+		elif msg == "J33":
+			log("Plugin: JANGAN FORTRESS 3>3")
+			inject_joymax( 0x705A,b'\x05\x00\x00\x00\x02\x33\x00\x00\x00\x05\x00\x00\x00',False)
 # 500MS DE BIR KONTROL ETTIRME
 def event_loop():
 	if inGame and followActivated:
