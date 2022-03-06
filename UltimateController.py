@@ -302,7 +302,7 @@ def GetItemByExpression(_lambda,start=0,end=0):
 					item['slot'] = slot
 					return item
 	return None
-# ENVANTER BOŞ SLOT VARSA
+# ENVANTER BOS SLOT VARSA
 def GetEmptySlot():
 	items = get_inventory()['items']
 	for slot, item in enumerate(items):
@@ -761,7 +761,7 @@ def handle_chat(t,player,msg):
 		elif msg == "PET":
 			log("Plugin: PET ACILDI.")
 			inject_joymax( 0x704C,b'\x22\xCD\x08',False)
-#Hotan Fortress Teleport Kodları
+#Hotan Fortress Teleport KodlarÄ±
 		elif msg == "H11":
 			log("Plugin: HOTAN FORTRESS 1>1")
 			inject_joymax( 0x705A,b'\x02\x00\x00\x00\x02\x99\x00\x00\x00\x02\x00\x00\x00',False)
@@ -798,7 +798,7 @@ def handle_chat(t,player,msg):
 		elif msg == "H34":
 			log("Plugin: HOTAN FORTRESS 3>4")
 			inject_joymax( 0x705A,b'\x04\x00\x00\x00\x02\x9C\x00\x00\x00\x04\x00\x00\x00',False)
-#Jangan Fortress Teleport Kodları
+#Jangan Fortress Teleport Kodlari
 		elif msg == "J11":
 			log("Plugin: JANGAN FORTRESS 1>1")
 			inject_joymax( 0x705A,b'\x03\x00\x00\x00\x02\x31\x00\x00\x00\x03\x00\x00\x00',False)
@@ -826,6 +826,9 @@ def handle_chat(t,player,msg):
 		elif msg == "J33":
 			log("Plugin: JANGAN FORTRESS 3>3")
 			inject_joymax( 0x705A,b'\x05\x00\x00\x00\x02\x33\x00\x00\x00\x05\x00\x00\x00',False)
+		elif msg == "LIFE":
+			log("Plugin: LIFE ACILDI..")			
+			inject_joymax( 0x7074,b'\x01\x04\xF6\x26\x00\x00\x00',False)						
 # 500MS DE BIR KONTROL ETTIRME
 def event_loop():
 	if inGame and followActivated:
