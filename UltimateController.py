@@ -9,7 +9,7 @@ import os
 from time import sleep
 
 pName = 'UltimateController'
-pVersion = '0.1.2'
+pVersion = '0.1.3'
 pUrl = "https://raw.githubusercontent.com/GAUCHE0/Plugins/main/UltimateController.py"
 # ______________________________ KURULUM______________________________ #
 # KURESELLER
@@ -758,9 +758,6 @@ def handle_chat(t,player,msg):
 			log("Plugin: ZERK POTU ACILDI VE KULLANILDI.")
 			inject_joymax( 0x704C,b'\x26\xEC\x76',False)
 			Timer(2.0, inject_joymax, (0x715F,b'\x8B\x5D\x00\x00\x81\x5D\x00\x00',False)).start()
-		elif msg == "PET":
-			log("Plugin: PET ACILDI.")
-			inject_joymax( 0x704C,b'\x22\xCD\x08',False)
 #Hotan Fortress Teleport KodlarÄ±
 		elif msg == "H11":
 			log("Plugin: HOTAN FORTRESS 1>1")
@@ -828,7 +825,10 @@ def handle_chat(t,player,msg):
 			inject_joymax( 0x705A,b'\x05\x00\x00\x00\x02\x33\x00\x00\x00\x05\x00\x00\x00',False)
 		elif msg == "LIFE":
 			log("Plugin: LIFE ACILDI..")			
-			inject_joymax( 0x7074,b'\x01\x04\xF6\x26\x00\x00\x00',False)						
+			inject_joymax( 0x7074,b'\x01\x04\xF6\x26\x00\x00\x00',False)
+		elif msg == "BLESS":
+			log("Plugin: BLESS BASILDI..")			
+			inject_joymax( 0x7074,b'\x01\x04\xF8\x2D\x00\x00\x00',False)						
 # 500MS DE BIR KONTROL ETTIRME
 def event_loop():
 	if inGame and followActivated:
